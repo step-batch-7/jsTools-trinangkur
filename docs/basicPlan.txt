@@ -1,9 +1,0 @@
-1 cut -c [(k-n),(k,n),n] state.js (k-> starting number, n-> ending number)
-=>  for given a file name and using "-c" option we can find 1st character of every line
-
-2 cut -b 1 [(k-n),(k,n),n] state.js (k-> starting number, n-> ending number)
-=>  same as -c for given bite field
-
-3 cut -d "delemiter" -f [(k-n),(k,n),n] state.js
-=>  using -d to specifi delemiter...
-    using -f to specifi fields...

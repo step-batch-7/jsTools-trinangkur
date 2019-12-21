@@ -1,0 +1,27 @@
+For version v0.1
+        node cut.js -d " " -f  "1"
+        node cut.js -d " " -f  "1" "file name"
+
+
+
+1. (files to create: ./cut.js, ./src/cutLib.js, ./test/testCutLib.js )
+
+2. (in devDependincies "mocha" and "chai" will be added)
+
+(funcitons)
+3.  name => getFieldsToDisplay
+
+4.  name => getFields
+
+5.  name => getLines
+
+6.  name => parseRange
+
+7.  name => parseOptions
+
+8.  (after version one appTest will be added...)
+
+9.  (incase of using stdin the getLine will handle standerd inputs...)
+
+10. (after version one cut using delimiter and for given field will work for both stdin and given file...)
+

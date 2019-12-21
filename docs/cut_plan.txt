@@ -1,32 +1,8 @@
 node cut.js [-c,-b,-f,-d] [range,delimiter] filename (state.js)
 
-things to implement:
+directory to creat => src, test
 
------ given file-----
-node cut.js -c 1 "filename"
-node cut.js -c 2-3 "filename"
-node cut.js -c 1,2 "filename"
-
-node cut.js -b 1 "filename"
-node cut.js -b 2-3 "filename"
-node cut.js -b 1,2 "filename"
-
-node cut -d " " -f  "1" "file name"
-node cut -d " " -f "1-3" "file name"
-node cut -d " " -f 1,2 "filename"
------ stdin -----
-node cut.js -c 1
-node cut.js -c 2-3
-node cut.js -c 1,2
-
-node cut.js -b 1
-node cut.js -b 2-3
-node cut.js -b 1,2
-
-node cut -d " " -f  "1"
-node cut -d " " -f "1-3"
-node cut -d " " -f 1,2
-
+files to creat => ./cut.js, ./src/cutLib.js, ./test/testCutLib.js
 
 assuming state.txt contains:
 Andhra Pradesh
@@ -35,7 +11,29 @@ Bihar
 Uttar Pradesh
 Delhi
 
+
 Things to implement: for given file
+
+7 => node cut -d " " -f  "1" "file name"
+Andhra
+West
+Bihar
+Uttar
+Delhi
+
+8 => node cut -d " " -f "1-3" "file name"
+Andhra Pradesh
+West Bengal
+Bihar
+Uttar Pradesh
+Delhi
+
+9 => node cut -d " " -f "-1" "file name"
+Andhra
+West
+Bihar
+Uttar
+Delhi
 
 1 => node cut.js -c 1 state.js
 A
@@ -79,26 +77,6 @@ Bih
 Utt
 Del
 
-7 => node cut -d " " -f  "1" "file name"
-Andhra
-West
-Bihar
-Uttar
-Delhi
-
-8 => node cut -d " " -f "1-3" "file name"
-Andhra Pradesh
-West Bengal
-Bihar
-Uttar Pradesh
-Delhi
-
-9 => node cut -d " " -f "-1" "file name"
-Andhra
-West
-Bihar
-Uttar
-Delhi
 
 ==> the flow of using -c <==
 Considering a blackbox of the app:-
