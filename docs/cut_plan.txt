@@ -1,0 +1,173 @@
+node cut.js [-c,-b,-f,-d] [range,delimiter] filename (state.js)
+
+things to implement:
+
+----- given file-----
+node cut.js -c 1 "filename"
+node cut.js -c 2-3 "filename"
+node cut.js -c 1,2 "filename"
+
+node cut.js -b 1 "filename"
+node cut.js -b 2-3 "filename"
+node cut.js -b 1,2 "filename"
+
+node cut -d " " -f  "1" "file name"
+node cut -d " " -f "1-3" "file name"
+node cut -d " " -f 1,2 "filename"
+----- stdin -----
+node cut.js -c 1
+node cut.js -c 2-3
+node cut.js -c 1,2
+
+node cut.js -b 1
+node cut.js -b 2-3
+node cut.js -b 1,2
+
+node cut -d " " -f  "1"
+node cut -d " " -f "1-3"
+node cut -d " " -f 1,2
+
+
+assuming state.txt contains:
+Andhra Pradesh
+West Bengal
+Bihar
+Uttar Pradesh
+Delhi
+
+Things to implement: for given file
+
+1 => node cut.js -c 1 state.js
+A
+W
+B
+U
+D
+
+2 => node cut.js -c 2-3 state.js
+nd
+es
+ih
+tt
+el
+
+3 => node cut.js -c -3 state.js
+And
+Wes
+Bih
+Utt
+Del
+
+4 => node cut.js -b 1 state.js
+A
+W
+B
+U
+D
+
+5 => node cut.js -b 2-3 state.js
+nd
+es
+ih
+tt
+el
+
+6 => node cut.js -b -3 state.js
+And
+Wes
+Bih
+Utt
+Del
+
+7 => node cut -d " " -f  "1" "file name"
+Andhra
+West
+Bihar
+Uttar
+Delhi
+
+8 => node cut -d " " -f "1-3" "file name"
+Andhra Pradesh
+West Bengal
+Bihar
+Uttar Pradesh
+Delhi
+
+9 => node cut -d " " -f "-1" "file name"
+Andhra
+West
+Bihar
+Uttar
+Delhi
+
+==> the flow of using -c <==
+Considering a blackbox of the app:-
+["node","cut.js","-c","field","filename"]
+
+Considering one example:
+node cut.js -c 1 state.txt
+
+=> {cut.js} =>
+....... => given field if there it will show the field or else it will give a blank line...
+
+[1.1] the last step
+output => text : printableFields
+"A\nW\nB\nU\nD"
+input => array : fields
+name => getGetPrintableFields
+
+[1.2] the previous step
+output => array : fields
+[A,W,B,U,d]
+input => array : lines, array : rangeOfFileds, delimiter : ""
+name => getFields
+
+[1.3a] the previous step
+output => array : lines
+input => function : reader, string : path
+name => getLines
+
+[1.3b] the previous step
+output => array : rangeOfFileds
+input => string : givenRange
+name => parseRange
+
+[1.4] the previous step
+output => object : options
+{reader: fs.readFileSynch, path:"./state.txt", givenRange:"1",delimiter:""}
+input => array : cmndLineArg
+name : parseOptions
+["node","cut.js","-c","1","state.txt"]
+
+
+==> the flow using -b <==
+[same as -c]
+
+==> the flow using -f & -d <==
+[2.1] the last step
+output => text : fieldsToDisplay
+"A\nW\nB\nU\nD"
+input => array : fields
+name => getFieldsToDisplay
+
+[2.2] the previous step
+output => array : fields
+[A,W,B,U,d]
+input => array : lines, array : rangeOfFileds, string: delimiter
+name => getFields
+
+[2.3a] the previous step
+output => array : lines
+input => function : reader, string : path
+name => getLines
+
+[2.3b] the previous step
+output => array : rangeOfFileds
+input => string : givenRange
+name => parseRange
+
+[2.4] the previous step
+output => object : options
+{reader: fs.readFileSynch, path:"./state.txt", givenRange:"1",delimiter:" "}
+input => array : cmndLineArg
+name => parseOptions
