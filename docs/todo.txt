@@ -4,12 +4,12 @@ For version v0.1
 
 
 
-1. (files to create: ./cut.js, ./src/cutLib.js, ./test/testCutLib.js )
+1. (files to create: ./cut.js, ./src/cutLib.js, ./test/testCutLib.js ) ✔️
 
-2. (in devDependincies "mocha" and "chai" will be added)
+2. (in devDependincies "mocha" and "chai" will be added) ✔️
 
 (funcitons)
-3.  name => getFieldsToDisplay
+3.  name => getFieldsToDisplay ✔️
 
 4.  name => getFields
 
