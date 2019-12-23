@@ -21,6 +21,9 @@ const getLines = function(chunk) {
 
 const getFormatedFields = function(line, delimeter, range) {
   const allFields = line.split(delimeter);
+  if (allFields.length == 1) {
+    return line;
+  }
   const desiredFields = range.map(element => allFields[element - 1]);
   return desiredFields.filter(element => element).join(delimeter);
 };

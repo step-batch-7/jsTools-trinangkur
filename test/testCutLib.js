@@ -34,9 +34,13 @@ describe("getFormatedFields", function() {
     const actual = getFormatedFields("ab cf ef", " ", [1, 2, 8]);
     assert.strictEqual(actual, "ab cf");
   });
-  it("should get emoty strign if given range is not there", function() {
+  it("should get empty strign if given range is not there", function() {
     const actual = getFormatedFields("ab cf ef", "f", [10]);
     assert.strictEqual(actual, "");
+  });
+  it("should whole line when the given delimeter is not there", function() {
+    const actual = getFormatedFields("ab cf ef", "-", [10]);
+    assert.strictEqual(actual, "ab cf ef");
   });
 });
 
