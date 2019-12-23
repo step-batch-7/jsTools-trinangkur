@@ -25,4 +25,14 @@ const getFormatedFields = function(line, delimeter, range) {
   return desiredFields.filter(element => element).join(delimeter);
 };
 
-module.exports = { formatLines, getLines, getFormatedFields, parseOptions };
+const parseRange = function(fields) {
+  return [+fields];
+};
+
+module.exports = {
+  formatLines,
+  getLines,
+  getFormatedFields,
+  parseOptions,
+  parseRange
+};

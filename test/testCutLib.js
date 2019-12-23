@@ -2,7 +2,8 @@ const {
   formatLines,
   getLines,
   getFormatedFields,
-  parseOptions
+  parseOptions,
+  parseRange
 } = require("../src/cutLib");
 const assert = require("chai").assert;
 
@@ -53,5 +54,12 @@ describe("parseOptions", function() {
       options: { path: undefined, delimeter: " ", fields: "1" }
     };
     assert.deepStrictEqual(actual, expected);
+  });
+});
+
+describe("parseRange", function() {
+  it("should return an array of having all given fields", function() {
+    const actual = parseRange("1");
+    assert.deepStrictEqual(actual, [1]);
   });
 });
