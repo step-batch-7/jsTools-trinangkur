@@ -2,6 +2,22 @@ const formatLines = function(list) {
   return list.join("\n");
 };
 
+const parseFilePath = function(args) {
+  const lastElement = args[args.length - 1];
+  const optionForD = args[args.indexOf("-d") + 1];
+  const optionForF = args[args.indexOf("-f") + 1];
+  if (lastElement == optionForD || lastElement == optionForF) return;
+  return lastElement;
+};
+
+const parseOptions = function(args) {
+  let commands = { options: {} };
+  commands.options.path = parseFilePath(args);
+  commands.options.delimeter = args[args.indexOf("-d") + 1];
+  commands.options.fields = args[args.indexOf("-f") + 1];
+  return commands;
+};
+
 const getLines = function(chunk) {
   return chunk.split("\n");
 };
@@ -12,4 +28,4 @@ const getFormatedFields = function(line, delimeter, range) {
   return desiredFields.filter(element => element).join(delimeter);
 };
 
-module.exports = { formatLines, getLines, getFormatedFields };
+module.exports = { formatLines, getLines, getFormatedFields, parseOptions };

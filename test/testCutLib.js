@@ -1,4 +1,9 @@
-const { formatLines, getLines, getFormatedFields } = require("../src/cutLib");
+const {
+  formatLines,
+  getLines,
+  getFormatedFields,
+  parseOptions
+} = require("../src/cutLib");
 const assert = require("chai").assert;
 
 describe("formatLines", function() {
@@ -31,5 +36,14 @@ describe("getFormatedFields", function() {
   it("should get emoty strign if given range is not there", function() {
     const actual = getFormatedFields("ab cf ef", "f", [10]);
     assert.strictEqual(actual, "");
+  });
+});
+
+describe("parseOptions", function() {
+  it("should return options for given arguement", function() {
+    const actual = parseOptions(["-d", " ", "-f", "1", "state.txt"]);
+    assert.deepStrictEqual(actual, {
+      options: { path: "state.txt", delimeter: " ", fields: "1" }
+    });
   });
 });
