@@ -1,4 +1,4 @@
-const { formatFields, getLines } = require("../src/cutLib");
+const { formatFields, getLines, getFileds } = require("../src/cutLib");
 const assert = require("chai").assert;
 
 describe("formatFields", function() {
@@ -20,5 +20,12 @@ describe("getLines", function() {
   it("should return whole chunk in one array if the no new line is there", function() {
     const actual = getLines("abcd");
     assert.deepStrictEqual(actual, ["abcd"]);
+  });
+});
+
+describe("getFields", function() {
+  it("should get fileds for a given range", function() {
+    const actual = getFileds("ab cf ef", " ", [1, 2]);
+    assert.deepStrictEqual(actual, ["ab", "cf"]);
   });
 });

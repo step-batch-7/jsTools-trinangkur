@@ -13,7 +13,7 @@ For version v0.1
 
 4.  name => getFields
 
-5.  name => getLines
+5.  name => getLines ✔️
 
 6.  name => parseRange
 

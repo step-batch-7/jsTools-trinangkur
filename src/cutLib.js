@@ -6,4 +6,12 @@ const getLines = function(chunk) {
   return chunk.split("\n");
 };
 
-module.exports = { formatFields, getLines };
+const getFileds = function(line, delimeter, range) {
+  const allFields = line.split(delimeter);
+  const desiredFields = range.map(element => {
+    return allFields[element - 1];
+  });
+  return desiredFields;
+};
+
+module.exports = { formatFields, getLines, getFileds };

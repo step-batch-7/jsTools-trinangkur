@@ -92,7 +92,7 @@ node cut.js -c 1 state.txt
 output => text : printableFields
 "A\nW\nB\nU\nD"
 input => array : fields
-name => getGetPrintableFields
+name => formatFeilds
 
 [1.2] the previous step
 output => array : fields
@@ -126,7 +126,7 @@ name : parseOptions
 output => text : fieldsToDisplay
 "A\nW\nB\nU\nD"
 input => array : fields
-name => getFieldsToDisplay
+name => formatFeilds
 
 [2.2] the previous step
 output => array : fields
