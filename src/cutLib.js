@@ -1,5 +1,5 @@
-const getFieldsToDisplay = function(list) {
+const formatFields = function(list) {
   return list.join("\n");
 };
 
-module.exports = { getFieldsToDisplay };
+module.exports = { formatFields };

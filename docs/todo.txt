@@ -9,7 +9,7 @@ For version v0.1
 2. (in devDependincies "mocha" and "chai" will be added) ✔️
 
 (funcitons)
-3.  name => getFieldsToDisplay ✔️
+3.  name => formatFields ✔️
 
 4.  name => getFields
 
