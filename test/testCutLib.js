@@ -42,8 +42,16 @@ describe("getFormatedFields", function() {
 describe("parseOptions", function() {
   it("should return options for given arguement", function() {
     const actual = parseOptions(["-d", " ", "-f", "1", "state.txt"]);
-    assert.deepStrictEqual(actual, {
+    const expected = {
       options: { path: "state.txt", delimeter: " ", fields: "1" }
-    });
+    };
+    assert.deepStrictEqual(actual, expected);
+  });
+  it("path shuould have undefined when no file name is given", function() {
+    const actual = parseOptions(["-d", " ", "-f", "1"]);
+    const expected = {
+      options: { path: undefined, delimeter: " ", fields: "1" }
+    };
+    assert.deepStrictEqual(actual, expected);
   });
 });
