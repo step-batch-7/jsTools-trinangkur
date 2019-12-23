@@ -2,13 +2,13 @@ const reader = require("fs").readFile;
 const { executeCmnd } = require("./src/executeCmnd");
 
 const main = function() {
-  const usefulFuncs = {
+  const ioTool = {
     reader,
     log: console.log,
     errStream: console.error,
     stdin: process.stdin
   };
-  executeCmnd(process.argv.slice(2), usefulFuncs);
+  executeCmnd(process.argv.slice(2), ioTool);
 };
 
 main();

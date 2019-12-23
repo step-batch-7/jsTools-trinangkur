@@ -15,9 +15,9 @@ For version v0.1
 
 5.  name => getLines ✔️
 
-6.  name => parseRange
+6.  name => parseRange ✔️
 
-7.  name => parseOptions
+7.  name => parseOptions ✔️
 
 8.  (after version one appTest will be added...)
 

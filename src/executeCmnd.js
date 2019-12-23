@@ -20,18 +20,18 @@ const performReadStream = function(chunk, options, log) {
   log(fields.join("\n"));
 };
 
-const executeCmnd = function(args, usefulFunc) {
+const executeCmnd = function(args, ioTool) {
   const cutInfo = parseOptions(args);
 
   if (!cutInfo.options.path) {
-    usefulFunc.stdin.setEncoding("utf8");
-    usefulFunc.stdin.on("data", data => {
-      performStdStream(data, cutInfo.options, usefulFunc.log);
+    ioTool.stdin.setEncoding("utf8");
+    ioTool.stdin.on("data", data => {
+      performStdStream(data, cutInfo.options, ioTool.log);
     });
     return;
   }
-  usefulFunc.reader(cutInfo.options.path, "utf8", (err, chunk) => {
-    performReadStream(chunk, cutInfo.options, usefulFunc.log);
+  ioTool.reader(cutInfo.options.path, "utf8", (err, chunk) => {
+    performReadStream(chunk, cutInfo.options, ioTool.log);
   });
 };
 
