@@ -1,13 +1,13 @@
-const { formatFields, getLines, getFileds } = require("../src/cutLib");
+const { formatLines, getLines, getFormatedFields } = require("../src/cutLib");
 const assert = require("chai").assert;
 
-describe("formatFields", function() {
+describe("formatLines", function() {
   it("for a given list should join them with new line", function() {
-    const actual = formatFields([1, 2, 3]);
+    const actual = formatLines([1, 2, 3]);
     assert.strictEqual(actual, "1\n2\n3");
   });
   it("for a given empty list should return empty stirng", function() {
-    const actual = formatFields([]);
+    const actual = formatLines([]);
     assert.strictEqual(actual, "");
   });
 });
@@ -23,9 +23,9 @@ describe("getLines", function() {
   });
 });
 
-describe("getFields", function() {
+describe("getFormatedFields", function() {
   it("should get fileds for a given range", function() {
-    const actual = getFileds("ab cf ef", " ", [1, 2]);
-    assert.deepStrictEqual(actual, ["ab", "cf"]);
+    const actual = getFormatedFields("ab cf ef", " ", [1, 2]);
+    assert.strictEqual(actual, "ab cf");
   });
 });

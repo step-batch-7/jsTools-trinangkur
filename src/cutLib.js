@@ -1,4 +1,4 @@
-const formatFields = function(list) {
+const formatLines = function(list) {
   return list.join("\n");
 };
 
@@ -6,12 +6,13 @@ const getLines = function(chunk) {
   return chunk.split("\n");
 };
 
-const getFileds = function(line, delimeter, range) {
+const getFormatedFields = function(line, delimeter, range) {
   const allFields = line.split(delimeter);
-  const desiredFields = range.map(element => {
-    return allFields[element - 1];
+  const validRange = range.filter(element => {
+    return allFields[element - 1] ? true : false;
   });
-  return desiredFields;
+  const desiredFields = validRange.map(element => allFields[element - 1]);
+  return desiredFields.join(delimeter);
 };
 
-module.exports = { formatFields, getLines, getFileds };
+module.exports = { formatLines, getLines, getFormatedFields };
