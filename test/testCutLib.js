@@ -28,4 +28,8 @@ describe("getFormatedFields", function() {
     const actual = getFormatedFields("ab cf ef", " ", [1, 2]);
     assert.strictEqual(actual, "ab cf");
   });
+  it("should get emoty strign if given range is not there", function() {
+    const actual = getFormatedFields("ab cf ef", "f", [10]);
+    assert.strictEqual(actual, "");
+  });
 });
