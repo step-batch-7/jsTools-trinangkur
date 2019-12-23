@@ -30,7 +30,7 @@ const executeCmnd = function(args, ioTool) {
     });
     return;
   }
-  ioTool.reader(cutInfo.options.path, "utf8", (err, chunk) => {
+  ioTool.read(cutInfo.options.path, "utf8", (err, chunk) => {
     performReadStream(chunk, cutInfo.options, ioTool.log);
   });
 };

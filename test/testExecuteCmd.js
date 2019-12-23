@@ -16,11 +16,11 @@ describe("executeCmnd", function() {
     executeCmnd(["-d", " ", "-f", "1"], { stdin: { on, setEncoding } });
   });
   it("reader should get desired arguments when file path not there", function() {
-    const reader = function(path, encoder) {
+    const read = function(path, encoder) {
       assert.strictEqual(path, "anyPath");
       assert.strictEqual(encoder, "utf8", performStdStream);
     };
-    executeCmnd(["-d", " ", "-f", "1", "anyPath"], { reader });
+    executeCmnd(["-d", " ", "-f", "1", "anyPath"], { read });
   });
   describe("performReadStream", function() {
     it("log should get desired fields for read stream", function() {

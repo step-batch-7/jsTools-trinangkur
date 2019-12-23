@@ -1,9 +1,9 @@
-const reader = require("fs").readFile;
+const read = require("fs").readFile;
 const { executeCmnd } = require("./src/executeCmnd");
 
 const main = function() {
   const ioTool = {
-    reader,
+    read,
     log: console.log,
     errStream: console.error,
     stdin: process.stdin
