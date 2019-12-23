@@ -11,7 +11,7 @@ For version v0.1
 (funcitons)
 3.  name => formatFields ✔️
 
-4.  name => getFields
+4.  name => getFormatedFields ✔️
 
 5.  name => getLines ✔️
 
