@@ -25,7 +25,7 @@ describe("getLines", function() {
 
 describe("getFormatedFields", function() {
   it("should get fileds for a given range", function() {
-    const actual = getFormatedFields("ab cf ef", " ", [1, 2]);
+    const actual = getFormatedFields("ab cf ef", " ", [1, 2, 8]);
     assert.strictEqual(actual, "ab cf");
   });
   it("should get emoty strign if given range is not there", function() {

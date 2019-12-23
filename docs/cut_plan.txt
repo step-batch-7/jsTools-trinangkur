@@ -149,3 +149,8 @@ output => object : options
 {reader: fs.readFileSynch, path:"./state.txt", givenRange:"1",delimiter:" "}
 input => array : cmndLineArg
 name => parseOptions
+
+** going to consider
+=> node cut.js -d"," -f1 state.txt
+=> node cut.js -d "," -f 1 state.txt
+as same
