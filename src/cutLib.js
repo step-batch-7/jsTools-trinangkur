@@ -2,17 +2,14 @@ const formatLines = function(list) {
   return list.join("\n");
 };
 
-const parseFilePath = function(args) {
-  const lastElement = args[args.length - 1];
-  const optionForD = args[args.indexOf("-d") + 1];
-  const optionForF = args[args.indexOf("-f") + 1];
-  if (lastElement == optionForD || lastElement == optionForF) return;
-  return lastElement;
+const getFilePath = function(args) {
+  if (args.length % 2 == 0) return;
+  return args[args.length - 1];
 };
 
 const parseOptions = function(args) {
   let commands = { options: {} };
-  commands.options.path = parseFilePath(args);
+  commands.options.path = getFilePath(args);
   commands.options.delimeter = args[args.indexOf("-d") + 1];
   commands.options.fields = args[args.indexOf("-f") + 1];
   return commands;
