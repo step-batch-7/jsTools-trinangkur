@@ -5,14 +5,14 @@ const {
   getLines
 } = require("./cutLib");
 
-const performStdStream = function(data, options, log) {
+const performStdFlow = function(data, options, log) {
   const line = data.trim();
   const range = parseRange(options.fields);
   const formatedFields = getFormatedFields(line, options.delimeter, range);
   log(formatedFields);
 };
 
-const performReadStream = function(chunk, options, log) {
+const performReadFlow = function(chunk, options, log) {
   const lines = getLines(chunk);
   const delimeter = options.delimeter;
   const range = parseRange(options.fields);
@@ -26,13 +26,17 @@ const executeCmnd = function(args, ioTool) {
   if (!cutInfo.options.path) {
     ioTool.stdin.setEncoding("utf8");
     ioTool.stdin.on("data", data => {
-      performStdStream(data, cutInfo.options, ioTool.log);
+      performStdFlow(data, cutInfo.options, ioTool.log);
     });
     return;
   }
   ioTool.read(cutInfo.options.path, "utf8", (err, chunk) => {
-    performReadStream(chunk, cutInfo.options, ioTool.log);
+    performReadFlow(chunk, cutInfo.options, ioTool.log);
   });
 };
 
-module.exports = { executeCmnd, performReadStream, performStdStream };
+module.exports = {
+  executeCmnd,
+  performReadFlow: performReadFlow,
+  performStdFlow: performStdFlow
+};

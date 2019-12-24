@@ -1,13 +1,13 @@
 const {
-  performReadStream,
-  performStdStream,
+  performReadFlow,
+  performStdFlow,
   executeCmnd
 } = require("../src/executeCmnd");
 const assert = require("chai").assert;
 
 describe("executeCmnd", function() {
   it("stdin should get desired arguments when file path is not there", function() {
-    const on = (data, performStdStream) => {
+    const on = (data, performStdFlow) => {
       assert.strictEqual(data, "data");
     };
     const setEncoding = code => {
@@ -18,28 +18,28 @@ describe("executeCmnd", function() {
   it("reader should get desired arguments when file path not there", function() {
     const read = function(path, encoder) {
       assert.strictEqual(path, "anyPath");
-      assert.strictEqual(encoder, "utf8", performStdStream);
+      assert.strictEqual(encoder, "utf8", performStdFlow);
     };
     executeCmnd(["-d", " ", "-f", "1", "anyPath"], { read });
   });
-  describe("performReadStream", function() {
+  describe("performReadFlow", function() {
     it("log should get desired fields for read stream", function() {
       const log = stream => {
         assert.strictEqual(stream, "ab\ncd");
       };
       const chunk = "ab-cd\ncd-ab";
       const options = { path: "anyPath", delimeter: "-", fields: "1" };
-      performReadStream(chunk, options, log);
+      performReadFlow(chunk, options, log);
     });
   });
-  describe("performStdStream", function() {
+  describe("performStdFlow", function() {
     it("log should get desired fields for std stream", function() {
       const log = stream => {
         assert.strictEqual(stream, "cd");
       };
       const data = "cd-ab\n";
       const options = { path: "anyPath", delimeter: "-", fields: "1" };
-      performStdStream(data, options, log);
+      performStdFlow(data, options, log);
     });
   });
 });
