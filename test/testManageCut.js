@@ -13,12 +13,8 @@ describe("manageCut", function() {
     assert.strictEqual(path, "anyPath");
     assert.strictEqual(encoder, "utf8", performStdFlow);
   };
-  const on = (data, performStdFlow) => {
-    assert.strictEqual(data, "data");
-  };
-  const setEncoding = code => {
-    assert.strictEqual(code, "utf8");
-  };
+  const on = () => {};
+  const resume = () => {};
   const existsSync = function(path) {
     assert.strictEqual(path, "anyPath");
     return true;
@@ -26,7 +22,7 @@ describe("manageCut", function() {
   it("stdin should get desired arguments when file path is not there", function() {
     manageCut(["-d", " ", "-f", "1"], { readFile, existsSync }, display, {
       on,
-      setEncoding
+      resume
     });
   });
   it("reader should get desired arguments when file path is there", function() {
@@ -34,7 +30,7 @@ describe("manageCut", function() {
       ["-d", " ", "-f", "1", "anyPath"],
       { readFile, existsSync },
       display,
-      { on, setEncoding }
+      { on, resume }
     );
   });
   it("display should get error stream for given wrong arguments", function() {
@@ -45,7 +41,7 @@ describe("manageCut", function() {
       ["-d", "", "-f", "1", "anyPath"],
       { readFile, existsSync },
       display,
-      { on, setEncoding }
+      { on, resume }
     );
   });
   describe("performReadFlow", function() {
@@ -63,7 +59,7 @@ describe("manageCut", function() {
       const display = function(outPut) {
         assert.strictEqual(outPut.message, "cd");
       };
-      const data = "cd-ab\n";
+      const data = "cd-ab";
       const options = { path: "anyPath", delimiter: "-", fields: "1" };
       performStdFlow(data, options, display);
     });

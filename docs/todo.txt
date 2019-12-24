@@ -19,9 +19,9 @@ For version v0.1
 
 7.  name => parseOptions ✔️
 
-8.  (after version one appTest will be added...)
+8.  (after version one appTest will be added...) ✔️
 
-9.  (incase of using stdin the getLine will handle standerd inputs...)
+9.  (incase of using stdin the getLine will handle standerd inputs...) ✔️
 
-10. (after version one cut using delimiter and for given field will work for both stdin and given file...)
+10. (after version one cut using delimiter and for given field will work for both stdin and given file...) ✔️
 

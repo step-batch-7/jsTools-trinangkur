@@ -6,9 +6,7 @@ const {
   checkValidation
 } = require("./cutLib");
 
-const performStdFlow = function(data, options, disPlay) {
-  const line = data.trim();
-  // console.log(line + `end`);
+const performStdFlow = function(line, options, disPlay) {
   const range = parseRange(options.fields);
   const formatedFields = getFormatedFields(line, options.delimiter, range);
   disPlay({ message: formatedFields });
@@ -22,7 +20,7 @@ const performReadFlow = function(chunk, options, display) {
   display({ message: fields.join("\n") });
 };
 
-const manageCut = function(args, fs, display, stdin) {
+const manageCut = function(args, fs, display, rl) {
   const options = parseOptions(args);
   const validation = checkValidation(args, options, fs.existsSync);
   if (validation.isError) {
@@ -30,8 +28,8 @@ const manageCut = function(args, fs, display, stdin) {
     return;
   }
   if (!options.path) {
-    stdin.setEncoding("utf8");
-    stdin.on("data", data => {
+    rl.resume();
+    rl.on("line", data => {
       performStdFlow(data, options, display);
     });
     return;
