@@ -1,2 +1,6 @@
 node_modules
 .nyc_output
+appTest
+runAllTests.sh
+runAppTests.sh
+failures.txt

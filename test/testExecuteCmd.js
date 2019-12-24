@@ -13,14 +13,14 @@ describe("executeCmnd", function() {
     const setEncoding = code => {
       assert.strictEqual(code, "utf8");
     };
-    executeCmnd(["-d", " ", "-f", "1"], { stdin: { on, setEncoding } });
+    executeCmnd(["-d", " ", "-f", "1"], {}, {}, { on, setEncoding });
   });
   it("reader should get desired arguments when file path not there", function() {
     const read = function(path, encoder) {
       assert.strictEqual(path, "anyPath");
       assert.strictEqual(encoder, "utf8", performStdFlow);
     };
-    executeCmnd(["-d", " ", "-f", "1", "anyPath"], { read });
+    executeCmnd(["-d", " ", "-f", "1", "anyPath"], { read }, {}, {});
   });
   describe("performReadFlow", function() {
     it("log should get desired fields for read stream", function() {

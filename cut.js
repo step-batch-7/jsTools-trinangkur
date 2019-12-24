@@ -1,14 +1,16 @@
-const read = require("fs").readFile;
+const { readFile, existsSync } = require("fs");
 const { executeCmnd } = require("./src/executeCmnd");
 
 const main = function() {
-  const ioTool = {
-    read,
+  const display = {
     log: console.log,
-    errStream: console.error,
-    stdin: process.stdin
+    error: console.error
   };
-  executeCmnd(process.argv.slice(2), ioTool);
+  const fsTool = {
+    read: readFile,
+    exists: existsSync
+  };
+  executeCmnd(process.argv.slice(2), fsTool, display, process.stdin);
 };
 
 main();

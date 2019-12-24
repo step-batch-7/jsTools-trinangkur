@@ -3,6 +3,7 @@ const {
   getFormatedFields,
   parseRange,
   getLines
+  // checkValidation
 } = require("./cutLib");
 
 const performStdFlow = function(data, options, log) {
@@ -20,18 +21,20 @@ const performReadFlow = function(chunk, options, log) {
   log(fields.join("\n"));
 };
 
-const executeCmnd = function(args, ioTool) {
-  const cutInfo = parseOptions(args);
-
-  if (!cutInfo.options.path) {
-    ioTool.stdin.setEncoding("utf8");
-    ioTool.stdin.on("data", data => {
-      performStdFlow(data, cutInfo.options, ioTool.log);
+const executeCmnd = function(args, fsTool, display, stdin) {
+  const options = parseOptions(args);
+  // const validation = checkValidation(args, options, ioTool.exists);
+  // if (validation.isError) {
+  // }
+  if (!options.path) {
+    stdin.setEncoding("utf8");
+    stdin.on("data", data => {
+      performStdFlow(data, options, display.log);
     });
     return;
   }
-  ioTool.read(cutInfo.options.path, "utf8", (err, chunk) => {
-    performReadFlow(chunk, cutInfo.options, ioTool.log);
+  fsTool.read(options.path, "utf8", (err, chunk) => {
+    performReadFlow(chunk, options, ioTool.log);
   });
 };
 

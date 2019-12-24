@@ -7,12 +7,15 @@ const getFilePath = function(args) {
   return args[args.length - 1];
 };
 
+// const checkValidation = function(cmndArgs, options) {};
+
 const parseOptions = function(args) {
-  let commands = { options: {} };
-  commands.options.path = getFilePath(args);
-  commands.options.delimeter = args[args.indexOf("-d") + 1];
-  commands.options.fields = args[args.indexOf("-f") + 1];
-  return commands;
+  let options = {};
+  options.path = getFilePath(args);
+  options.delimeter =
+    (args.find(e => e == "-d") && args[args.indexOf("-d") + 1]) || "\t";
+  options.fields = args[args.indexOf("-f") + 1];
+  return options;
 };
 
 const getLines = function(chunk) {
@@ -38,4 +41,5 @@ module.exports = {
   getFormatedFields,
   parseOptions,
   parseRange
+  //checkValidation
 };
