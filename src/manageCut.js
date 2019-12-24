@@ -21,7 +21,7 @@ const performReadFlow = function(chunk, options, log) {
   log(fields.join("\n"));
 };
 
-const executeCmnd = function(args, fsTool, display, stdin) {
+const manageCut = function(args, fsTool, display, stdin) {
   const options = parseOptions(args);
   const validation = checkValidation(args, options, fsTool.exists);
   if (validation.isError) {
@@ -41,7 +41,7 @@ const executeCmnd = function(args, fsTool, display, stdin) {
 };
 
 module.exports = {
-  executeCmnd,
-  performReadFlow: performReadFlow,
-  performStdFlow: performStdFlow
+  manageCut,
+  performReadFlow,
+  performStdFlow
 };

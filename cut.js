@@ -1,5 +1,5 @@
 const { readFile, existsSync } = require("fs");
-const { executeCmnd } = require("./src/executeCmnd");
+const { manageCut } = require("./src/manageCut");
 
 const main = function() {
   const display = {
@@ -10,7 +10,7 @@ const main = function() {
     read: readFile,
     exists: existsSync
   };
-  executeCmnd(process.argv.slice(2), fsTool, display, process.stdin);
+  manageCut(process.argv.slice(2), fsTool, display, process.stdin);
 };
 
 main();

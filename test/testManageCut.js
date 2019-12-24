@@ -1,11 +1,11 @@
 const {
   performReadFlow,
   performStdFlow,
-  executeCmnd
-} = require("../src/executeCmnd");
+  manageCut
+} = require("../src/manageCut");
 const assert = require("chai").assert;
 
-describe("executeCmnd", function() {
+describe("manageCut", function() {
   it("stdin should get desired arguments when file path is not there", function() {
     const on = (data, performStdFlow) => {
       assert.strictEqual(data, "data");
@@ -13,7 +13,7 @@ describe("executeCmnd", function() {
     const setEncoding = code => {
       assert.strictEqual(code, "utf8");
     };
-    executeCmnd(["-d", " ", "-f", "1"], {}, {}, { on, setEncoding });
+    manageCut(["-d", " ", "-f", "1"], {}, {}, { on, setEncoding });
   });
   it("reader should get desired arguments when file path not there", function() {
     const read = function(path, encoder) {
@@ -24,7 +24,7 @@ describe("executeCmnd", function() {
       assert.strictEqual(path, "anyPath");
       return true;
     };
-    executeCmnd(["-d", " ", "-f", "1", "anyPath"], { read, exists }, {}, {});
+    manageCut(["-d", " ", "-f", "1", "anyPath"], { read, exists }, {}, {});
   });
   describe("performReadFlow", function() {
     it("log should get desired fields for read stream", function() {
