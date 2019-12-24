@@ -9,21 +9,21 @@ const {
 const performStdFlow = function(data, options, log) {
   const line = data.trim();
   const range = parseRange(options.fields);
-  const formatedFields = getFormatedFields(line, options.delimeter, range);
+  const formatedFields = getFormatedFields(line, options.delimiter, range);
   log(formatedFields);
 };
 
 const performReadFlow = function(chunk, options, log) {
   const lines = getLines(chunk);
-  const delimeter = options.delimeter;
+  const delimiter = options.delimiter;
   const range = parseRange(options.fields);
-  const fields = lines.map(line => getFormatedFields(line, delimeter, range));
+  const fields = lines.map(line => getFormatedFields(line, delimiter, range));
   log(fields.join("\n"));
 };
 
 const executeCmnd = function(args, fsTool, display, stdin) {
   const options = parseOptions(args);
-  // const validation = checkValidation(args, options, ioTool.exists);
+  // const validation = checkValidation(args, options, fsTool.exists);
   // if (validation.isError) {
   // }
   if (!options.path) {

@@ -3,7 +3,8 @@ const {
   getLines,
   getFormatedFields,
   parseOptions,
-  parseRange
+  parseRange,
+  checkValidation
 } = require("../src/cutLib");
 const assert = require("chai").assert;
 
@@ -38,7 +39,7 @@ describe("getFormatedFields", function() {
     const actual = getFormatedFields("ab cf ef", "f", [10]);
     assert.strictEqual(actual, "");
   });
-  it("should whole line when the given delimeter is not there", function() {
+  it("should whole line when the given delimiter is not there", function() {
     const actual = getFormatedFields("ab cf ef", "-", [10]);
     assert.strictEqual(actual, "ab cf ef");
   });
@@ -47,17 +48,17 @@ describe("getFormatedFields", function() {
 describe("parseOptions", function() {
   it("should return options for given arguement", function() {
     const actual = parseOptions(["-d", " ", "-f", "1", "state.txt"]);
-    const expected = { path: "state.txt", delimeter: " ", fields: "1" };
+    const expected = { path: "state.txt", delimiter: " ", fields: "1" };
     assert.deepStrictEqual(actual, expected);
   });
   it("path shuould have undefined when no file name is given", function() {
     const actual = parseOptions(["-d", " ", "-f", "1"]);
-    const expected = { path: undefined, delimeter: " ", fields: "1" };
+    const expected = { path: undefined, delimiter: " ", fields: "1" };
     assert.deepStrictEqual(actual, expected);
   });
-  it("should get tab as delimeter when it is not given", function() {
+  it("should get tab as delimiter when it is not given", function() {
     const actual = parseOptions(["-f", "1"]);
-    const expected = { path: undefined, delimeter: "\t", fields: "1" };
+    const expected = { path: undefined, delimiter: "\t", fields: "1" };
     assert.deepStrictEqual(actual, expected);
   });
 });
@@ -66,5 +67,40 @@ describe("parseRange", function() {
   it("should return an array of having all given fields", function() {
     const actual = parseRange("1");
     assert.deepStrictEqual(actual, [1]);
+  });
+});
+
+describe("checkValidation", function() {
+  it("should return an object having isError as false and errorMsg as null when no error is there", function() {
+    const doesFileExists = function(path) {
+      assert.strictEqual(path, "anyPath");
+      return true;
+    };
+    const actual = checkValidation(
+      ["-d", ",", "-f", "2"],
+      {
+        path: undefined,
+        delimiter: ",",
+        fields: "1"
+      },
+      doesFileExists
+    );
+    assert.deepStrictEqual(actual, { isError: false, errorMsg: null });
+  });
+  it("should return isError as false when right file name is given ", function() {
+    const doesFileExists = function(path) {
+      assert.strictEqual(path, "anyPath");
+      return true;
+    };
+    let actual = checkValidation(
+      ["-d", ",", "-f", "2"],
+      {
+        path: "anyPath",
+        delimiter: ",",
+        fields: "1"
+      },
+      doesFileExists
+    );
+    assert.deepStrictEqual(actual, { isError: false, errorMsg: null });
   });
 });

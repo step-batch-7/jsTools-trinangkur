@@ -7,12 +7,29 @@ const getFilePath = function(args) {
   return args[args.length - 1];
 };
 
-// const checkValidation = function(cmndArgs, options) {};
+const getErrorMessage = function(filePath) {
+  error = {};
+  error.delimiter = "cur: bad delimiter";
+  error.file = `cut: ${filePath}: No such file or directory`;
+  error.options = `usage: cut -b list [-n] [file ...]\ncut -c list [file ...]\ncut -f list [-s] [-d delim] [file ...]`;
+  return error;
+};
+
+const checkValidation = function(cmndArgs, options, doesFileExists) {
+  const error = getErrorMessage(options.path);
+  if (options.delimiter.length != 1)
+    return { isError: true, errorMsg: error.delimiter };
+  if (!cmndArgs.find(e => e == "-f"))
+    return { isError: true, errorMsg: error.options };
+  if (options.path && !doesFileExists(options.path))
+    return { isError: true, errorMsg: error.file };
+  return { isError: false, errorMsg: null };
+};
 
 const parseOptions = function(args) {
   let options = {};
   options.path = getFilePath(args);
-  options.delimeter =
+  options.delimiter =
     (args.find(e => e == "-d") && args[args.indexOf("-d") + 1]) || "\t";
   options.fields = args[args.indexOf("-f") + 1];
   return options;
@@ -22,13 +39,13 @@ const getLines = function(chunk) {
   return chunk.split("\n");
 };
 
-const getFormatedFields = function(line, delimeter, range) {
-  const allFields = line.split(delimeter);
+const getFormatedFields = function(line, delimiter, range) {
+  const allFields = line.split(delimiter);
   if (allFields.length == 1) {
     return line;
   }
   const desiredFields = range.map(element => allFields[element - 1]);
-  return desiredFields.filter(element => element).join(delimeter);
+  return desiredFields.filter(element => element).join(delimiter);
 };
 
 const parseRange = function(fields) {
@@ -40,6 +57,6 @@ module.exports = {
   getLines,
   getFormatedFields,
   parseOptions,
-  parseRange
-  //checkValidation
+  parseRange,
+  checkValidation
 };

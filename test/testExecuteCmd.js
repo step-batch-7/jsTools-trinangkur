@@ -28,7 +28,7 @@ describe("executeCmnd", function() {
         assert.strictEqual(stream, "ab\ncd");
       };
       const chunk = "ab-cd\ncd-ab";
-      const options = { path: "anyPath", delimeter: "-", fields: "1" };
+      const options = { path: "anyPath", delimiter: "-", fields: "1" };
       performReadFlow(chunk, options, log);
     });
   });
@@ -38,7 +38,7 @@ describe("executeCmnd", function() {
         assert.strictEqual(stream, "cd");
       };
       const data = "cd-ab\n";
-      const options = { path: "anyPath", delimeter: "-", fields: "1" };
+      const options = { path: "anyPath", delimiter: "-", fields: "1" };
       performStdFlow(data, options, log);
     });
   });
