@@ -1,0 +1,6 @@
+node cut.js -d " " -f 1 ./docs/state.txt 
+Andhra
+West
+Bihar
+Uttar
+Delhi
