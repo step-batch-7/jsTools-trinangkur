@@ -103,4 +103,23 @@ describe("checkValidation", function() {
     );
     assert.deepStrictEqual(actual, { isError: false, errorMsg: null });
   });
+  it("should return isError as true when delimeter is invalid", function() {
+    const doesFileExists = function(path) {
+      assert.strictEqual(path, "anyPath");
+      return true;
+    };
+    let actual = checkValidation(
+      ["-d", "", "-f", "2"],
+      {
+        path: "anyPath",
+        delimiter: "",
+        fields: "1"
+      },
+      doesFileExists
+    );
+    assert.deepStrictEqual(actual, {
+      isError: true,
+      errorMsg: "cut: bad delimiter"
+    });
+  });
 });
