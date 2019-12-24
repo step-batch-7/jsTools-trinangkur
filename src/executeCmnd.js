@@ -2,8 +2,8 @@ const {
   parseOptions,
   getFormatedFields,
   parseRange,
-  getLines
-  // checkValidation
+  getLines,
+  checkValidation
 } = require("./cutLib");
 
 const performStdFlow = function(data, options, log) {
@@ -23,9 +23,11 @@ const performReadFlow = function(chunk, options, log) {
 
 const executeCmnd = function(args, fsTool, display, stdin) {
   const options = parseOptions(args);
-  // const validation = checkValidation(args, options, fsTool.exists);
-  // if (validation.isError) {
-  // }
+  const validation = checkValidation(args, options, fsTool.exists);
+  if (validation.isError) {
+    display.error(validation.errorMsg);
+    return;
+  }
   if (!options.path) {
     stdin.setEncoding("utf8");
     stdin.on("data", data => {

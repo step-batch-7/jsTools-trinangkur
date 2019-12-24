@@ -1,0 +1,2 @@
+node cut.js -d"" -f1 appTest/one.txt
+cut: bad delimiter

@@ -20,7 +20,11 @@ describe("executeCmnd", function() {
       assert.strictEqual(path, "anyPath");
       assert.strictEqual(encoder, "utf8", performStdFlow);
     };
-    executeCmnd(["-d", " ", "-f", "1", "anyPath"], { read }, {}, {});
+    const exists = function(path) {
+      assert.strictEqual(path, "anyPath");
+      return true;
+    };
+    executeCmnd(["-d", " ", "-f", "1", "anyPath"], { read, exists }, {}, {});
   });
   describe("performReadFlow", function() {
     it("log should get desired fields for read stream", function() {

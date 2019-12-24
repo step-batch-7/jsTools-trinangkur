@@ -30,8 +30,7 @@ const checkValidation = function(cmndArgs, options, doesFileExists) {
 const parseOptions = function(args) {
   let options = {};
   options.path = getFilePath(args);
-  options.delimiter =
-    (args.find(e => e == "-d") && args[args.indexOf("-d") + 1]) || "\t";
+  options.delimiter = args.includes("-d") ? args[args.indexOf("-d") + 1] : "\t";
   options.fields = args[args.indexOf("-f") + 1];
   return options;
 };

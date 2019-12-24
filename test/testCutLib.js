@@ -103,7 +103,7 @@ describe("checkValidation", function() {
     );
     assert.deepStrictEqual(actual, { isError: false, errorMsg: null });
   });
-  it("should return isError as true when delimeter is invalid", function() {
+  it("should return isError as true when delimiter is invalid", function() {
     const doesFileExists = function(path) {
       assert.strictEqual(path, "anyPath");
       return true;
@@ -122,7 +122,7 @@ describe("checkValidation", function() {
       errorMsg: "cut: bad delimiter"
     });
   });
-  it("should return isError as true when delimeter is invalid", function() {
+  it("should return isError as true when delimiter is invalid", function() {
     const doesFileExists = function(path) {
       assert.strictEqual(path, "anyPath");
       return true;
@@ -142,7 +142,7 @@ describe("checkValidation", function() {
         "usage: cut -b list [-n] [file ...]\ncut -c list [file ...]\ncut -f list [-s] [-d delim] [file ...]"
     });
   });
-  it("should return isError as true when delimeter is invalid", function() {
+  it("should return isError as true when delimiter is invalid", function() {
     const doesFileExists = function(path) {
       assert.strictEqual(path, "anyPath");
       return false;
