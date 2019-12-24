@@ -142,4 +142,23 @@ describe("checkValidation", function() {
         "usage: cut -b list [-n] [file ...]\ncut -c list [file ...]\ncut -f list [-s] [-d delim] [file ...]"
     });
   });
+  it("should return isError as true when delimeter is invalid", function() {
+    const doesFileExists = function(path) {
+      assert.strictEqual(path, "anyPath");
+      return false;
+    };
+    let actual = checkValidation(
+      ["-d", ",", "-f", "2"],
+      {
+        path: "anyPath",
+        delimiter: ",",
+        fields: "1"
+      },
+      doesFileExists
+    );
+    assert.deepStrictEqual(actual, {
+      isError: true,
+      errorMsg: "cut: anyPath: No such file or directory"
+    });
+  });
 });
