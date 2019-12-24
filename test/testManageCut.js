@@ -6,29 +6,46 @@ const {
 const assert = require("chai").assert;
 
 describe("manageCut", function() {
+  const display = function(outPut) {
+    assert.strictEqual(outPut.message, "ab\ncd");
+  };
+  const readFile = function(path, encoder) {
+    assert.strictEqual(path, "anyPath");
+    assert.strictEqual(encoder, "utf8", performStdFlow);
+  };
+  const on = (data, performStdFlow) => {
+    assert.strictEqual(data, "data");
+  };
+  const setEncoding = code => {
+    assert.strictEqual(code, "utf8");
+  };
+  const existsSync = function(path) {
+    assert.strictEqual(path, "anyPath");
+    return true;
+  };
   it("stdin should get desired arguments when file path is not there", function() {
-    const on = (data, performStdFlow) => {
-      assert.strictEqual(data, "data");
-    };
-    const setEncoding = code => {
-      assert.strictEqual(code, "utf8");
-    };
-    manageCut(["-d", " ", "-f", "1"], {}, {}, { on, setEncoding });
+    manageCut(["-d", " ", "-f", "1"], { readFile, existsSync }, display, {
+      on,
+      setEncoding
+    });
   });
   it("reader should get desired arguments when file path is there", function() {
-    const readFile = function(path, encoder) {
-      assert.strictEqual(path, "anyPath");
-      assert.strictEqual(encoder, "utf8", performStdFlow);
-    };
-    const existsSync = function(path) {
-      assert.strictEqual(path, "anyPath");
-      return true;
-    };
     manageCut(
       ["-d", " ", "-f", "1", "anyPath"],
       { readFile, existsSync },
-      {},
-      {}
+      display,
+      { on, setEncoding }
+    );
+  });
+  it("display should get error stream for given wrong arguments", function() {
+    const display = function(outPut) {
+      assert.strictEqual(outPut.err, "cut: bad delimiter");
+    };
+    manageCut(
+      ["-d", "", "-f", "1", "anyPath"],
+      { readFile, existsSync },
+      display,
+      { on, setEncoding }
     );
   });
   describe("performReadFlow", function() {
