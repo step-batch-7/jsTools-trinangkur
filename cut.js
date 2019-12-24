@@ -1,4 +1,4 @@
-const { readFile, existsSync } = require("fs");
+const fs = require("fs");
 const { manageCut } = require("./src/manageCut");
 
 const main = function() {
@@ -6,11 +6,7 @@ const main = function() {
     log: console.log,
     error: console.error
   };
-  const fsTool = {
-    read: readFile,
-    exists: existsSync
-  };
-  manageCut(process.argv.slice(2), fsTool, display, process.stdin);
+  manageCut(process.argv.slice(2), fs, display, process.stdin);
 };
 
 main();

@@ -21,9 +21,9 @@ const performReadFlow = function(chunk, options, log) {
   log(fields.join("\n"));
 };
 
-const manageCut = function(args, fsTool, display, stdin) {
+const manageCut = function(args, fs, display, stdin) {
   const options = parseOptions(args);
-  const validation = checkValidation(args, options, fsTool.exists);
+  const validation = checkValidation(args, options, fs.existsSync);
   if (validation.isError) {
     display.error(validation.errorMsg);
     return;
@@ -35,7 +35,7 @@ const manageCut = function(args, fsTool, display, stdin) {
     });
     return;
   }
-  fsTool.read(options.path, "utf8", (err, chunk) => {
+  fs.readFile(options.path, "utf8", (err, chunk) => {
     performReadFlow(chunk, options, ioTool.log);
   });
 };

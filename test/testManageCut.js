@@ -15,16 +15,21 @@ describe("manageCut", function() {
     };
     manageCut(["-d", " ", "-f", "1"], {}, {}, { on, setEncoding });
   });
-  it("reader should get desired arguments when file path not there", function() {
-    const read = function(path, encoder) {
+  it("reader should get desired arguments when file path is there", function() {
+    const readFile = function(path, encoder) {
       assert.strictEqual(path, "anyPath");
       assert.strictEqual(encoder, "utf8", performStdFlow);
     };
-    const exists = function(path) {
+    const existsSync = function(path) {
       assert.strictEqual(path, "anyPath");
       return true;
     };
-    manageCut(["-d", " ", "-f", "1", "anyPath"], { read, exists }, {}, {});
+    manageCut(
+      ["-d", " ", "-f", "1", "anyPath"],
+      { readFile, existsSync },
+      {},
+      {}
+    );
   });
   describe("performReadFlow", function() {
     it("log should get desired fields for read stream", function() {
