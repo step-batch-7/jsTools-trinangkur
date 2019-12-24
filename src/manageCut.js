@@ -8,6 +8,7 @@ const {
 
 const performStdFlow = function(data, options, disPlay) {
   const line = data.trim();
+  // console.log(line + `end`);
   const range = parseRange(options.fields);
   const formatedFields = getFormatedFields(line, options.delimiter, range);
   disPlay({ message: formatedFields });
