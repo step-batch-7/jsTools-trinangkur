@@ -122,4 +122,24 @@ describe("checkValidation", function() {
       errorMsg: "cut: bad delimiter"
     });
   });
+  it("should return isError as true when delimeter is invalid", function() {
+    const doesFileExists = function(path) {
+      assert.strictEqual(path, "anyPath");
+      return true;
+    };
+    let actual = checkValidation(
+      ["-d", ",", "2"],
+      {
+        path: "anyPath",
+        delimiter: ",",
+        fields: "-d"
+      },
+      doesFileExists
+    );
+    assert.deepStrictEqual(actual, {
+      isError: true,
+      errorMsg:
+        "usage: cut -b list [-n] [file ...]\ncut -c list [file ...]\ncut -f list [-s] [-d delim] [file ...]"
+    });
+  });
 });

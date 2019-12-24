@@ -11,7 +11,8 @@ const getErrorMessage = function(filePath) {
   error = {};
   error.delimiter = "cut: bad delimiter";
   error.file = `cut: ${filePath}: No such file or directory`;
-  error.options = `usage: cut -b list [-n] [file ...]\ncut -c list [file ...]\ncut -f list [-s] [-d delim] [file ...]`;
+  error.options =
+    "usage: cut -b list [-n] [file ...]\ncut -c list [file ...]\ncut -f list [-s] [-d delim] [file ...]";
   return error;
 };
 
