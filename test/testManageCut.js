@@ -33,22 +33,22 @@ describe("manageCut", function() {
   });
   describe("performReadFlow", function() {
     it("log should get desired fields for read stream", function() {
-      const log = stream => {
-        assert.strictEqual(stream, "ab\ncd");
+      const display = function(outPut) {
+        assert.strictEqual(outPut.message, "ab\ncd");
       };
       const chunk = "ab-cd\ncd-ab";
       const options = { path: "anyPath", delimiter: "-", fields: "1" };
-      performReadFlow(chunk, options, log);
+      performReadFlow(chunk, options, display);
     });
   });
   describe("performStdFlow", function() {
     it("log should get desired fields for std stream", function() {
-      const log = stream => {
-        assert.strictEqual(stream, "cd");
+      const display = function(outPut) {
+        assert.strictEqual(outPut.message, "cd");
       };
       const data = "cd-ab\n";
       const options = { path: "anyPath", delimiter: "-", fields: "1" };
-      performStdFlow(data, options, log);
+      performStdFlow(data, options, display);
     });
   });
 });
