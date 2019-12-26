@@ -37,17 +37,22 @@ describe("getFormatedFields", function() {
 describe("parseOptions", function() {
   it("should return options for given arguement", function() {
     const actual = parseOptions(["-d", " ", "-f", "1", "state.txt"]);
-    const expected = { path: "state.txt", delimiter: " ", fields: "1" };
+    const expected = { path: "state.txt", delimiter: " ", fields: [1] };
     assert.deepStrictEqual(actual, expected);
   });
   it("path shuould have undefined when no file name is given", function() {
     const actual = parseOptions(["-d", " ", "-f", "1"]);
-    const expected = { path: undefined, delimiter: " ", fields: "1" };
+    const expected = { path: undefined, delimiter: " ", fields: [1] };
     assert.deepStrictEqual(actual, expected);
   });
   it("should get tab as delimiter when it is not given", function() {
     const actual = parseOptions(["-f", "1"]);
-    const expected = { path: undefined, delimiter: "\t", fields: "1" };
+    const expected = { path: undefined, delimiter: "\t", fields: [1] };
+    assert.deepStrictEqual(actual, expected);
+  });
+  it("should get undefined as field when it is not given", function() {
+    const actual = parseOptions(["-d", " "]);
+    const expected = { path: undefined, delimiter: " ", fields: undefined };
     assert.deepStrictEqual(actual, expected);
   });
 });

@@ -31,7 +31,7 @@ const parseOptions = function(args) {
   options.path = getFilePath(args);
   options.delimiter = args.includes("-d") ? args[args.indexOf("-d") + 1] : "\t";
   options.fields = args.includes("-f")
-    ? args[args.indexOf("-f") + 1]
+    ? parseRange(args[args.indexOf("-f") + 1])
     : undefined;
   return options;
 };
