@@ -2,7 +2,6 @@ const {
   parseOptions,
   getFormatedFields,
   parseRange,
-  getLines,
   checkValidation
 } = require("./cutLib");
 

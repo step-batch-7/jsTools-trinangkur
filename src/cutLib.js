@@ -35,10 +35,6 @@ const parseOptions = function(args) {
   return options;
 };
 
-const getLines = function(chunk) {
-  return chunk.split("\n");
-};
-
 const getFormatedFields = function(line, delimiter, range) {
   const allFields = line.split(delimiter);
   if (allFields.length == 1) {
@@ -54,7 +50,6 @@ const parseRange = function(fields) {
 
 module.exports = {
   formatLines,
-  getLines,
   getFormatedFields,
   parseOptions,
   parseRange,
