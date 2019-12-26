@@ -66,7 +66,6 @@ describe("checkValidation", function() {
       return true;
     };
     const actual = checkValidation(
-      ["-d", ",", "-f", "2"],
       {
         path: undefined,
         delimiter: ",",
@@ -82,7 +81,6 @@ describe("checkValidation", function() {
       return true;
     };
     let actual = checkValidation(
-      ["-d", ",", "-f", "2"],
       {
         path: "anyPath",
         delimiter: ",",
@@ -98,7 +96,6 @@ describe("checkValidation", function() {
       return true;
     };
     let actual = checkValidation(
-      ["-d", "", "-f", "2"],
       {
         path: "anyPath",
         delimiter: "",
@@ -111,17 +108,16 @@ describe("checkValidation", function() {
       errorMsg: "cut: bad delimiter"
     });
   });
-  it("should return isError as true when delimiter is invalid", function() {
+  it("should return isError as true when field is not given", function() {
     const doesFileExists = function(path) {
       assert.strictEqual(path, "anyPath");
       return true;
     };
     let actual = checkValidation(
-      ["-d", ",", "2"],
       {
         path: "anyPath",
         delimiter: ",",
-        fields: "-d"
+        fields: undefined
       },
       doesFileExists
     );
@@ -131,13 +127,12 @@ describe("checkValidation", function() {
         "usage: cut -b list [-n] [file ...]\ncut -c list [file ...]\ncut -f list [-s] [-d delim] [file ...]"
     });
   });
-  it("should return isError as true when delimiter is invalid", function() {
+  it("should return isError as false when given file path is invalid", function() {
     const doesFileExists = function(path) {
       assert.strictEqual(path, "anyPath");
       return false;
     };
     let actual = checkValidation(
-      ["-d", ",", "-f", "2"],
       {
         path: "anyPath",
         delimiter: ",",

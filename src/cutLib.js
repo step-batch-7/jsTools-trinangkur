@@ -16,12 +16,11 @@ const getErrorMessage = function(filePath) {
   return error;
 };
 
-const checkValidation = function(cmdArgs, options, doesFileExists) {
+const checkValidation = function(options, doesFileExists) {
   const error = getErrorMessage(options.path);
   if (options.delimiter.length != 1)
     return { isError: true, errorMsg: error.delimiter };
-  if (!cmdArgs.find(e => e == "-f"))
-    return { isError: true, errorMsg: error.options };
+  if (!options.fields) return { isError: true, errorMsg: error.options };
   if (options.path && !doesFileExists(options.path))
     return { isError: true, errorMsg: error.file };
   return { isError: false, errorMsg: null };
@@ -31,7 +30,9 @@ const parseOptions = function(args) {
   let options = {};
   options.path = getFilePath(args);
   options.delimiter = args.includes("-d") ? args[args.indexOf("-d") + 1] : "\t";
-  options.fields = args[args.indexOf("-f") + 1];
+  options.fields = args.includes("-f")
+    ? args[args.indexOf("-f") + 1]
+    : undefined;
   return options;
 };
 

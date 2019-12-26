@@ -21,7 +21,7 @@ const performReadFlow = function(display, err, chunk) {
 
 const manageCut = function(args, fs, display, rl) {
   const options = parseOptions(args);
-  const validation = checkValidation(args, options, fs.existsSync);
+  const validation = checkValidation(options, fs.existsSync);
   if (validation.isError) {
     display({ err: validation.errorMsg });
     return;
