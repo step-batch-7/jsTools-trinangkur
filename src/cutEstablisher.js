@@ -1,21 +1,20 @@
 const {
   parseOptions,
   getFormatedFields,
-  parseRange,
   checkValidation
 } = require("./cutLib");
 
 const performStdFlow = function(display, line) {
-  const range = parseRange(this.fields);
-  const formatedFields = getFormatedFields(line, this.delimiter, range);
+  const formatedFields = getFormatedFields(line, this.delimiter, this.fields);
   display({ message: formatedFields });
 };
 
 const performReadFlow = function(display, err, chunk) {
   const lines = chunk.split("\n");
   const delimiter = this.delimiter;
-  const range = parseRange(this.fields);
-  const fields = lines.map(line => getFormatedFields(line, delimiter, range));
+  const fields = lines.map(line =>
+    getFormatedFields(line, delimiter, this.fields)
+  );
   display({ message: fields.join("\n") });
 };
 

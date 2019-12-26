@@ -46,7 +46,7 @@ describe("cut", function() {
         assert.strictEqual(outPut.message, "ab\ncd");
       };
       const chunk = "ab-cd\ncd-ab";
-      const options = { path: "anyPath", delimiter: "-", fields: "1" };
+      const options = { path: "anyPath", delimiter: "-", fields: [1] };
       const err = null;
       performReadFlow.call(options, display, err, chunk);
     });
@@ -57,7 +57,7 @@ describe("cut", function() {
         assert.strictEqual(outPut.message, "cd");
       };
       const data = "cd-ab";
-      const options = { path: "anyPath", delimiter: "-", fields: "1" };
+      const options = { path: "anyPath", delimiter: "-", fields: [1] };
       performStdFlow.call(options, display, data);
     });
   });
