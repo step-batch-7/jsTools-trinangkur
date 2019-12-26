@@ -1,11 +1,11 @@
 const {
   performReadFlow,
   performStdFlow,
-  manageCut
-} = require("../src/manageCut");
+  cut
+} = require("../src/cutEstablisher");
 const assert = require("chai").assert;
 
-describe("manageCut", function() {
+describe("cut", function() {
   const display = function(outPut) {
     assert.strictEqual(outPut.message, "ab\ncd");
   };
@@ -20,29 +20,25 @@ describe("manageCut", function() {
     return true;
   };
   it("stdin should get desired arguments when file path is not there", function() {
-    manageCut(["-d", " ", "-f", "1"], { readFile, existsSync }, display, {
+    cut(["-d", " ", "-f", "1"], { readFile, existsSync }, display, {
       on,
       resume
     });
   });
   it("reader should get desired arguments when file path is there", function() {
-    manageCut(
-      ["-d", " ", "-f", "1", "anyPath"],
-      { readFile, existsSync },
-      display,
-      { on, resume }
-    );
+    cut(["-d", " ", "-f", "1", "anyPath"], { readFile, existsSync }, display, {
+      on,
+      resume
+    });
   });
   it("display should get error stream for given wrong arguments", function() {
     const display = function(outPut) {
       assert.strictEqual(outPut.err, "cut: bad delimiter");
     };
-    manageCut(
-      ["-d", "", "-f", "1", "anyPath"],
-      { readFile, existsSync },
-      display,
-      { on, resume }
-    );
+    cut(["-d", "", "-f", "1", "anyPath"], { readFile, existsSync }, display, {
+      on,
+      resume
+    });
   });
   describe("performReadFlow", function() {
     it("log should get desired fields for read stream", function() {

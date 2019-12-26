@@ -1,6 +1,5 @@
 const {
   formatLines,
-  getLines,
   getFormatedFields,
   parseOptions,
   parseRange,
@@ -20,11 +19,11 @@ describe("formatLines", function() {
 });
 
 describe("getFormatedFields", function() {
-  it("should get fileds for a given range", function() {
+  it("should get fields for a given range", function() {
     const actual = getFormatedFields("ab cf ef", " ", [1, 2, 8]);
     assert.strictEqual(actual, "ab cf");
   });
-  it("should get empty strign if given range is not there", function() {
+  it("should get empty string if given range is not there", function() {
     const actual = getFormatedFields("ab cf ef", "f", [10]);
     assert.strictEqual(actual, "");
   });
@@ -35,12 +34,12 @@ describe("getFormatedFields", function() {
 });
 
 describe("parseOptions", function() {
-  it("should return options for given arguement", function() {
+  it("should return options for given argument", function() {
     const actual = parseOptions(["-d", " ", "-f", "1", "state.txt"]);
     const expected = { path: "state.txt", delimiter: " ", fields: [1] };
     assert.deepStrictEqual(actual, expected);
   });
-  it("path shuould have undefined when no file name is given", function() {
+  it("path should have undefined when no file name is given", function() {
     const actual = parseOptions(["-d", " ", "-f", "1"]);
     const expected = { path: undefined, delimiter: " ", fields: [1] };
     assert.deepStrictEqual(actual, expected);

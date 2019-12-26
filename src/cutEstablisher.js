@@ -19,7 +19,7 @@ const performReadFlow = function(display, err, chunk) {
   display({ message: fields.join("\n") });
 };
 
-const manageCut = function(args, fs, display, rl) {
+const cut = function(args, fs, display, rl) {
   const options = parseOptions(args);
   const validation = checkValidation(options, fs.existsSync);
   if (validation.isError) {
@@ -35,7 +35,7 @@ const manageCut = function(args, fs, display, rl) {
 };
 
 module.exports = {
-  manageCut,
+  cut,
   performReadFlow,
   performStdFlow
 };

@@ -1,6 +1,6 @@
 const fs = require("fs");
 const readLine = require("readline");
-const { manageCut } = require("./src/manageCut");
+const { cut } = require("./src/cutEstablisher");
 
 const rl = readLine.createInterface({ input: process.stdin });
 rl.pause();
@@ -10,7 +10,7 @@ const main = function() {
     outPut.message != undefined && console.log(outPut.message);
     outPut.err != undefined && console.error(outPut.err);
   };
-  manageCut(process.argv.slice(2), fs, display, rl);
+  cut(process.argv.slice(2), fs, display, rl);
 };
 
 main();
