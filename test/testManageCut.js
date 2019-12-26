@@ -51,7 +51,8 @@ describe("manageCut", function() {
       };
       const chunk = "ab-cd\ncd-ab";
       const options = { path: "anyPath", delimiter: "-", fields: "1" };
-      performReadFlow(chunk, options, display);
+      const err = null;
+      performReadFlow.call(options, display, err, chunk);
     });
   });
   describe("performStdFlow", function() {
@@ -61,7 +62,7 @@ describe("manageCut", function() {
       };
       const data = "cd-ab";
       const options = { path: "anyPath", delimiter: "-", fields: "1" };
-      performStdFlow(data, options, display);
+      performStdFlow.call(options, display, data);
     });
   });
 });

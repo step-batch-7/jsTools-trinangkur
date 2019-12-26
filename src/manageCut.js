@@ -6,16 +6,16 @@ const {
   checkValidation
 } = require("./cutLib");
 
-const performStdFlow = function(line, options, display) {
-  const range = parseRange(options.fields);
-  const formatedFields = getFormatedFields(line, options.delimiter, range);
+const performStdFlow = function(display, line) {
+  const range = parseRange(this.fields);
+  const formatedFields = getFormatedFields(line, this.delimiter, range);
   display({ message: formatedFields });
 };
 
-const performReadFlow = function(chunk, options, display) {
+const performReadFlow = function(display, err, chunk) {
   const lines = chunk.split("\n");
-  const delimiter = options.delimiter;
-  const range = parseRange(options.fields);
+  const delimiter = this.delimiter;
+  const range = parseRange(this.fields);
   const fields = lines.map(line => getFormatedFields(line, delimiter, range));
   display({ message: fields.join("\n") });
 };
@@ -29,14 +29,10 @@ const manageCut = function(args, fs, display, rl) {
   }
   if (!options.path) {
     rl.resume();
-    rl.on("line", data => {
-      performStdFlow(data, options, display);
-    });
+    rl.on("line", performStdFlow.bind(options, display));
     return;
   }
-  fs.readFile(options.path, "utf8", (err, chunk) => {
-    performReadFlow(chunk, options, display);
-  });
+  fs.readFile(options.path, "utf8", performReadFlow.bind(options, display));
 };
 
 module.exports = {
