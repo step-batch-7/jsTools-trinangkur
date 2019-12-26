@@ -6,9 +6,9 @@ For version v0.1
 
 1. (files to create: ./cut.js, ./src/cutLib.js, ./test/testCutLib.js ) ✔️
 
-2. (in devDependincies "mocha" and "chai" will be added) ✔️
+2. (in devDependencies "mocha" and "chai" will be added) ✔️
 
-(funcitons)
+(functions)
 3.  name => formatFields ✔️
 
 4.  name => getFormatedFields ✔️
@@ -21,7 +21,7 @@ For version v0.1
 
 8.  (after version one appTest will be added...) ✔️
 
-9.  (incase of using stdin the getLine will handle standerd inputs...) ✔️
+9.  (incase of using stdin the getLine will handle std inputs...) ✔️
 
 10. (after version one cut using delimiter and for given field will work for both stdin and given file...) ✔️
 

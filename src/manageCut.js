@@ -6,14 +6,14 @@ const {
   checkValidation
 } = require("./cutLib");
 
-const performStdFlow = function(line, options, disPlay) {
+const performStdFlow = function(line, options, display) {
   const range = parseRange(options.fields);
   const formatedFields = getFormatedFields(line, options.delimiter, range);
-  disPlay({ message: formatedFields });
+  display({ message: formatedFields });
 };
 
 const performReadFlow = function(chunk, options, display) {
-  const lines = getLines(chunk);
+  const lines = chunk.split("\n");
   const delimiter = options.delimiter;
   const range = parseRange(options.fields);
   const fields = lines.map(line => getFormatedFields(line, delimiter, range));

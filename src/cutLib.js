@@ -16,11 +16,11 @@ const getErrorMessage = function(filePath) {
   return error;
 };
 
-const checkValidation = function(cmndArgs, options, doesFileExists) {
+const checkValidation = function(cmdArgs, options, doesFileExists) {
   const error = getErrorMessage(options.path);
   if (options.delimiter.length != 1)
     return { isError: true, errorMsg: error.delimiter };
-  if (!cmndArgs.find(e => e == "-f"))
+  if (!cmdArgs.find(e => e == "-f"))
     return { isError: true, errorMsg: error.options };
   if (options.path && !doesFileExists(options.path))
     return { isError: true, errorMsg: error.file };
@@ -44,8 +44,8 @@ const getFormatedFields = function(line, delimiter, range) {
   if (allFields.length == 1) {
     return line;
   }
-  const desiredFields = range.map(element => allFields[element - 1]);
-  return desiredFields.filter(element => element).join(delimiter);
+  const desiredFields = range.map(number => allFields[number - 1]);
+  return desiredFields.filter(field => field).join(delimiter);
 };
 
 const parseRange = function(fields) {
