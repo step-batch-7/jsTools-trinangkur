@@ -13,7 +13,7 @@ const performCut = function(display, data) {
   display({ message: formatedFields.join("\n") });
 };
 
-const sendError = function(path, display, exitWith, error) {
+const sendError = function(path, display, error) {
   const errorList = {
     ENOENT: {
       message: `cut: ${path}: No such file or directory`,
@@ -24,11 +24,11 @@ const sendError = function(path, display, exitWith, error) {
   };
   const errorLine = errorList[error.code].message;
   const exitCode = errorList[error.code].code;
+  process.exitCode = exitCode;
   display({ err: errorLine });
-  exitWith(exitCode);
 };
 
-const cut = function(args, display, createReadStream, rl, exitWith) {
+const cut = function(args, display, createReadStream, rl) {
   const options = parseOptions(args);
   const validation = checkValidation(options);
   if (validation.isError) {
@@ -41,10 +41,7 @@ const cut = function(args, display, createReadStream, rl, exitWith) {
   }
   chosenStream.resume();
   chosenStream.on("data", performCut.bind(options, display));
-  chosenStream.on(
-    "error",
-    sendError.bind(null, options.path, display, exitWith)
-  );
+  chosenStream.on("error", sendError.bind(null, options.path, display));
 };
 
 module.exports = {

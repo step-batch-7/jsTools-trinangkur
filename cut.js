@@ -12,7 +12,7 @@ const main = function() {
     outPut.message != undefined && console.log(outPut.message);
     outPut.err != undefined && console.error(outPut.err);
   };
-  cut(process.argv.slice(2), display, createReadStream, rl, process.exit);
+  cut(process.argv.slice(2), display, createReadStream, rl);
 };
 
 main();

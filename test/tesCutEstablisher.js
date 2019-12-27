@@ -79,15 +79,11 @@ describe("cut", function() {
       );
       assert.isUndefined(output.message);
     };
-    const exitWith = code => {
-      assert.strictEqual(code, 1);
-    };
     cut(
       ["-d", " ", "-f", "1", "wrongPath"],
       display,
       createReadStream,
-      mockedEmitter,
-      exitWith
+      mockedEmitter
     );
     mockedEmitter.emit("error", { code: "ENOENT" });
   });
