@@ -5,17 +5,6 @@ const {
 } = require("../src/cutLib");
 const assert = require("chai").assert;
 
-// describe("formatLines", function() {
-//   it("for a given list should join them with new line", function() {
-//     const actual = formatLines([1, 2, 3]);
-//     assert.strictEqual(actual, "1\n2\n3");
-//   });
-//   it("for a given empty list should return empty string", function() {
-//     const actual = formatLines([]);
-//     assert.strictEqual(actual, "");
-//   });
-// });
-
 describe("getFormatedFields", function() {
   it("should get fields for a given range", function() {
     const actual = getFormatedFields("ab cf ef", " ", [1, 2, 8]);
@@ -53,13 +42,6 @@ describe("parseOptions", function() {
     assert.deepStrictEqual(actual, expected);
   });
 });
-
-// describe("parseRange", function() {
-//   it("should return an array of having one given fields", function() {
-//     const actual = parseRange("1");
-//     assert.deepStrictEqual(actual, [1]);
-//   });
-// });
 
 describe("checkValidation", function() {
   it("should return an object having isError as false and errorMsg as null when no error is there", function() {
