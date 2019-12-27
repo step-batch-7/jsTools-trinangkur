@@ -4,37 +4,49 @@ const {
   checkValidation
 } = require("./cutLib");
 
-const performStdFlow = function(display, line) {
-  const formatedFields = getFormatedFields(line, this.delimiter, this.fields);
-  display({ message: formatedFields });
-};
-
-const performReadFlow = function(display, err, chunk) {
+const performCut = function(display, data) {
+  const chunk = data.toString();
   const lines = chunk.split("\n");
-  const delimiter = this.delimiter;
-  const fields = lines.map(line =>
-    getFormatedFields(line, delimiter, this.fields)
+  const formatedFields = lines.map(line =>
+    getFormatedFields(line, this.delimiter, this.fields)
   );
-  display({ message: fields.join("\n") });
+  display({ message: formatedFields.join("\n") });
 };
 
-const cut = function(args, fs, display, rl) {
+const sendError = function(path, display, exitWith, error) {
+  const errorList = {
+    ENOENT: {
+      message: `cut: ${path}: No such file or directory`,
+      code: 1
+    },
+    EISDIR: { message: `cut: Error reading ${path}`, code: 74 },
+    EACCES: { message: `cut: ${path}: Permission denied`, code: 1 }
+  };
+  const errorLine = errorList[error.code].message;
+  const exitCode = errorList[error.code].code;
+  display({ err: errorLine });
+  exitWith(exitCode);
+};
+
+const cut = function(args, display, createReadStream, rl, exitWith) {
   const options = parseOptions(args);
-  const validation = checkValidation(options, fs.existsSync);
+  const validation = checkValidation(options);
   if (validation.isError) {
     display({ err: validation.errorMsg });
     return;
   }
-  if (!options.path) {
-    rl.resume();
-    rl.on("line", performStdFlow.bind(options, display));
-    return;
+  let chosenStream = rl;
+  if (options.path) {
+    chosenStream = createReadStream(options.path);
   }
-  fs.readFile(options.path, "utf8", performReadFlow.bind(options, display));
+  chosenStream.resume();
+  chosenStream.on("data", performCut.bind(options, display));
+  chosenStream.on(
+    "error",
+    sendError.bind(null, options.path, display, exitWith)
+  );
 };
 
 module.exports = {
-  cut,
-  performReadFlow,
-  performStdFlow
+  cut
 };

@@ -1,7 +1,3 @@
-const formatLines = function(list) {
-  return list.join("\n");
-};
-
 const getFilePath = function(args) {
   if (args.length % 2 == 0) return;
   return args[args.length - 1];
@@ -16,13 +12,11 @@ const getErrorMessage = function(filePath) {
   return error;
 };
 
-const checkValidation = function(options, doesFileExists) {
+const checkValidation = function(options) {
   const error = getErrorMessage(options.path);
   if (options.delimiter.length != 1)
     return { isError: true, errorMsg: error.delimiter };
   if (!options.fields) return { isError: true, errorMsg: error.options };
-  if (options.path && !doesFileExists(options.path))
-    return { isError: true, errorMsg: error.file };
   return { isError: false, errorMsg: null };
 };
 
@@ -50,9 +44,7 @@ const parseRange = function(fields) {
 };
 
 module.exports = {
-  formatLines,
   getFormatedFields,
   parseOptions,
-  parseRange,
   checkValidation
 };

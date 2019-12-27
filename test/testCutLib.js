@@ -1,22 +1,20 @@
 const {
-  formatLines,
   getFormatedFields,
   parseOptions,
-  parseRange,
   checkValidation
 } = require("../src/cutLib");
 const assert = require("chai").assert;
 
-describe("formatLines", function() {
-  it("for a given list should join them with new line", function() {
-    const actual = formatLines([1, 2, 3]);
-    assert.strictEqual(actual, "1\n2\n3");
-  });
-  it("for a given empty list should return empty string", function() {
-    const actual = formatLines([]);
-    assert.strictEqual(actual, "");
-  });
-});
+// describe("formatLines", function() {
+//   it("for a given list should join them with new line", function() {
+//     const actual = formatLines([1, 2, 3]);
+//     assert.strictEqual(actual, "1\n2\n3");
+//   });
+//   it("for a given empty list should return empty string", function() {
+//     const actual = formatLines([]);
+//     assert.strictEqual(actual, "");
+//   });
+// });
 
 describe("getFormatedFields", function() {
   it("should get fields for a given range", function() {
@@ -56,12 +54,12 @@ describe("parseOptions", function() {
   });
 });
 
-describe("parseRange", function() {
-  it("should return an array of having all given fields", function() {
-    const actual = parseRange("1");
-    assert.deepStrictEqual(actual, [1]);
-  });
-});
+// describe("parseRange", function() {
+//   it("should return an array of having one given fields", function() {
+//     const actual = parseRange("1");
+//     assert.deepStrictEqual(actual, [1]);
+//   });
+// });
 
 describe("checkValidation", function() {
   it("should return an object having isError as false and errorMsg as null when no error is there", function() {
@@ -129,24 +127,6 @@ describe("checkValidation", function() {
       isError: true,
       errorMsg:
         "usage: cut -b list [-n] [file ...]\ncut -c list [file ...]\ncut -f list [-s] [-d delim] [file ...]"
-    });
-  });
-  it("should return isError as false when given file path is invalid", function() {
-    const doesFileExists = function(path) {
-      assert.strictEqual(path, "anyPath");
-      return false;
-    };
-    let actual = checkValidation(
-      {
-        path: "anyPath",
-        delimiter: ",",
-        fields: "1"
-      },
-      doesFileExists
-    );
-    assert.deepStrictEqual(actual, {
-      isError: true,
-      errorMsg: "cut: anyPath: No such file or directory"
     });
   });
 });
