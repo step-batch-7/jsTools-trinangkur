@@ -13,7 +13,7 @@ describe('cut', function() {
     };
 
     const display = function(output) {
-      assert.oneOf(output.message, ['a', 'a-b', '']);
+      assert.oneOf(output.message, ['a\n', 'a-b\n', '\n']);
       assert.isUndefined(output.err);
     };
 
@@ -28,7 +28,7 @@ describe('cut', function() {
     mockedEmitter.resume = () => {};
 
     const display = function(output) {
-      assert.oneOf(output.message, ['a', 'a-b', '']);
+      assert.oneOf(output.message, ['a\n', 'a-b\n', '\n']);
       assert.isUndefined(output.err);
     };
 
@@ -42,7 +42,7 @@ describe('cut', function() {
     mockedEmitter.resume = () => {};
 
     const display = function(output) {
-      assert.oneOf(output.message, ['a', 'a-b', '']);
+      assert.oneOf(output.message, ['a\n', 'a-b\n', '\n']);
       assert.isUndefined(output.err);
     };
 
@@ -56,7 +56,7 @@ describe('cut', function() {
     mockedEmitter.resume = () => {};
 
     const display = function(output) {
-      assert.strictEqual(output.err, 'cut: bad delimiter');
+      assert.strictEqual(output.err, 'cut: bad delimiter\n');
       assert.isUndefined(output.message);
     };
 
@@ -75,7 +75,7 @@ describe('cut', function() {
     const display = function(output) {
       assert.strictEqual(
         output.err,
-        'cut: wrongPath: No such file or directory'
+        'cut: wrongPath: No such file or directory\n'
       );
       assert.isUndefined(output.message);
     };

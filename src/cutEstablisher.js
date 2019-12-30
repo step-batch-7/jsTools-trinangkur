@@ -10,7 +10,7 @@ const performCut = function(display, data) {
   const formatedFields = lines.map(line =>
     getFormatedFields(line, this.delimiter, this.fields)
   );
-  display({ message: formatedFields.join('\n') });
+  display({ message: formatedFields.join('\n') + '\n' });
 };
 
 const sendError = function(path, display, error) {
@@ -25,7 +25,7 @@ const sendError = function(path, display, error) {
   const errorLine = errorList[error.code].message;
   const exitCode = errorList[error.code].code;
   process.exitCode = exitCode;
-  display({ err: errorLine });
+  display({ err: errorLine + '\n' });
 };
 
 const performStream = function(chosenStream, options, display) {
@@ -38,7 +38,8 @@ const cut = function(args, display, createReadStream, rl) {
   const options = parseOptions(args);
   const validation = checkValidation(options);
   if (validation.isError) {
-    display({ err: validation.errorMsg });
+    process.exitCode = 1;
+    display({ err: validation.errorMsg + '\n' });
     return;
   }
   let chosenStream = rl;
