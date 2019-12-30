@@ -14,8 +14,9 @@
     "url": "git+https://github.com/step-batch-7/jsTools-trinangkur.git"
   },
   "devDependencies": {
-    "mocha": "6.2.2",
-    "chai": "4.2.0"
+    "chai": "4.2.0",
+    "eslint": "^6.8.0",
+    "mocha": "6.2.2"
   },
   "keywords": [],
   "author": "",

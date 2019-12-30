@@ -1,18 +1,20 @@
-const { createReadStream } = require("fs");
-const readLine = require("readline");
-const { cut } = require("./src/cutEstablisher");
+const { createReadStream } = require('fs');
+const readLine = require('readline');
+const { cut } = require('./src/cutEstablisher');
+const { stdout, stderr } = process;
 
 const rl = readLine.createInterface({ input: process.stdin });
 
 rl.pause();
-rl.on("line", line => rl.emit("data", line));
+rl.on('line', line => rl.emit('data', line));
 
 const main = function() {
   const display = function(outPut) {
-    outPut.message != undefined && console.log(outPut.message);
-    outPut.err != undefined && console.error(outPut.err);
+    outPut.message !== undefined && stdout.write(outPut.message + '\n');
+    outPut.err !== undefined && stderr.write(outPut.err + '\n');
   };
-  cut(process.argv.slice(2), display, createReadStream, rl);
+  const startingOfCommand = 2;
+  cut(process.argv.slice(startingOfCommand), display, createReadStream, rl);
 };
 
 main();

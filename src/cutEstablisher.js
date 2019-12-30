@@ -2,15 +2,15 @@ const {
   parseOptions,
   getFormatedFields,
   checkValidation
-} = require("./cutLib");
+} = require('./cutLib');
 
 const performCut = function(display, data) {
   const chunk = data.toString();
-  const lines = chunk.split("\n");
+  const lines = chunk.split('\n');
   const formatedFields = lines.map(line =>
     getFormatedFields(line, this.delimiter, this.fields)
   );
-  display({ message: formatedFields.join("\n") });
+  display({ message: formatedFields.join('\n') });
 };
 
 const sendError = function(path, display, error) {
@@ -28,6 +28,12 @@ const sendError = function(path, display, error) {
   display({ err: errorLine });
 };
 
+const performStream = function(chosenStream, options, display) {
+  chosenStream.resume();
+  chosenStream.on('data', performCut.bind(options, display));
+  chosenStream.on('error', sendError.bind(null, options.path, display));
+};
+
 const cut = function(args, display, createReadStream, rl) {
   const options = parseOptions(args);
   const validation = checkValidation(options);
@@ -39,9 +45,7 @@ const cut = function(args, display, createReadStream, rl) {
   if (options.path) {
     chosenStream = createReadStream(options.path);
   }
-  chosenStream.resume();
-  chosenStream.on("data", performCut.bind(options, display));
-  chosenStream.on("error", sendError.bind(null, options.path, display));
+  performStream(chosenStream, options, display);
 };
 
 module.exports = {
