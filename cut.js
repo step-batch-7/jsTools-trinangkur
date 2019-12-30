@@ -13,8 +13,8 @@ const main = function() {
     outPut.message !== undefined && stdout.write(outPut.message + '\n');
     outPut.err !== undefined && stderr.write(outPut.err + '\n');
   };
-  const startingOfCommand = 2;
-  cut(process.argv.slice(startingOfCommand), display, createReadStream, rl);
+  const usrArgsStartIndex = 2;
+  cut(process.argv.slice(usrArgsStartIndex), display, createReadStream, rl);
 };
 
 main();

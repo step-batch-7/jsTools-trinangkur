@@ -4,8 +4,8 @@ const getFilePath = function(args) {
   if (args.length % divisor === remainder) {
     return;
   }
-  const one = 1;
-  return args[args.length - one];
+  const lastIndex = -1;
+  return args[args.length + lastIndex];
 };
 
 const getErrorMessage = function(filePath) {
@@ -32,25 +32,27 @@ const checkValidation = function(options) {
 };
 
 const parseOptions = function(args) {
-  const one = 1;
+  const next = 1;
   const options = {};
   options.path = getFilePath(args);
   options.delimiter = args.includes('-d')
-    ? args[args.indexOf('-d') + one]
+    ? args[args.indexOf('-d') + next]
     : '\t';
   options.fields = args.includes('-f')
-    ? parseRange(args[args.indexOf('-f') + one])
+    ? parseRange(args[args.indexOf('-f') + next])
     : undefined;
   return options;
 };
 
 const getFormatedFields = function(line, delimiter, range) {
-  const one = 1;
+  const singleFieldLength = 1;
   const allFields = line.split(delimiter);
-  if (allFields.length === one) {
+  if (allFields.length === singleFieldLength) {
     return line;
   }
-  const desiredFields = range.map(number => allFields[number - one]);
+  const desiredFields = range.map(
+    number => allFields[number - singleFieldLength]
+  );
   return desiredFields.filter(field => field).join(delimiter);
 };
 
