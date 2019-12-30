@@ -14,7 +14,7 @@ describe('cut', function() {
 
     const display = function(output) {
       assert.oneOf(output.message, ['a\n', 'a-b\n', '\n']);
-      assert.isUndefined(output.err);
+      assert.isEmpty(output.err);
     };
 
     cut(['-d', ' ', '-f', '1', 'anyPath'], display, createReadStream, {});
@@ -29,7 +29,7 @@ describe('cut', function() {
 
     const display = function(output) {
       assert.oneOf(output.message, ['a\n', 'a-b\n', '\n']);
-      assert.isUndefined(output.err);
+      assert.isEmpty(output.err);
     };
 
     cut(['-d', ' ', '-f', '1'], display, () => {}, mockedEmitter);
@@ -43,7 +43,7 @@ describe('cut', function() {
 
     const display = function(output) {
       assert.oneOf(output.message, ['a\n', 'a-b\n', '\n']);
-      assert.isUndefined(output.err);
+      assert.isEmpty(output.err);
     };
 
     cut(['-d', ' ', '-f', '1'], display, () => {}, mockedEmitter);
@@ -57,7 +57,7 @@ describe('cut', function() {
 
     const display = function(output) {
       assert.strictEqual(output.err, 'cut: bad delimiter\n');
-      assert.isUndefined(output.message);
+      assert.isEmpty(output.message);
     };
 
     cut(['-d', '', '-f', '1'], display, () => {}, mockedEmitter);
@@ -77,7 +77,7 @@ describe('cut', function() {
         output.err,
         'cut: wrongPath: No such file or directory\n'
       );
-      assert.isUndefined(output.message);
+      assert.isEmpty(output.message);
     };
     cut(
       ['-d', ' ', '-f', '1', 'wrongPath'],

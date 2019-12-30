@@ -11,8 +11,8 @@ rl.on('line', line => rl.emit('data', line));
 
 const main = function() {
   const display = function(outPut) {
-    outPut.message !== undefined && stdout.write(outPut.message);
-    outPut.err !== undefined && stderr.write(outPut.err);
+    stdout.write(outPut.message);
+    stderr.write(outPut.err);
   };
   const usrArgsStartIndex = 2;
   cut(process.argv.slice(usrArgsStartIndex), display, createReadStream, rl);
