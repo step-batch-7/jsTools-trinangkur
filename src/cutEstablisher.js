@@ -1,8 +1,4 @@
-const {
-  parseOptions,
-  getFormatedFields,
-  checkValidation
-} = require('./cutLib');
+const { parseOptions, getFormatedFields, checkError } = require('./cutLib');
 
 const performCut = function(display, data) {
   const chunk = data.toString();
@@ -36,7 +32,7 @@ const performStream = function(chosenStream, options, display) {
 
 const cut = function(args, display, createReadStream, rl) {
   const options = parseOptions(args);
-  const validation = checkValidation(options);
+  const validation = checkError(options);
   if (validation.isError) {
     process.exitCode = 1;
     display({ message: '', err: validation.errorMsg + '\n' });

@@ -1,7 +1,7 @@
 const {
   getFormatedFields,
   parseOptions,
-  checkValidation
+  checkError
 } = require('../src/cutLib');
 const assert = require('chai').assert;
 
@@ -43,13 +43,13 @@ describe('parseOptions', function() {
   });
 });
 
-describe('checkValidation', function() {
+describe('checkError', function() {
   it('should return an object having isError as false and errorMsg as null when no error is there', function() {
     const doesFileExists = function(path) {
       assert.strictEqual(path, 'anyPath');
       return true;
     };
-    const actual = checkValidation(
+    const actual = checkError(
       {
         path: undefined,
         delimiter: ',',
@@ -64,7 +64,7 @@ describe('checkValidation', function() {
       assert.strictEqual(path, 'anyPath');
       return true;
     };
-    let actual = checkValidation(
+    let actual = checkError(
       {
         path: 'anyPath',
         delimiter: ',',
@@ -79,7 +79,7 @@ describe('checkValidation', function() {
       assert.strictEqual(path, 'anyPath');
       return true;
     };
-    let actual = checkValidation(
+    let actual = checkError(
       {
         path: 'anyPath',
         delimiter: '',
@@ -97,7 +97,7 @@ describe('checkValidation', function() {
       assert.strictEqual(path, 'anyPath');
       return true;
     };
-    let actual = checkValidation(
+    let actual = checkError(
       {
         path: 'anyPath',
         delimiter: ',',

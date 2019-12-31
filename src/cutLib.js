@@ -19,7 +19,7 @@ const getErrorMessage = function(filePath) {
   return error;
 };
 
-const checkValidation = function(options) {
+const checkError = function(options) {
   const error = getErrorMessage(options.path);
   const delimiterLength = 1;
   if (options.delimiter.length !== delimiterLength) {
@@ -63,5 +63,5 @@ const parseRange = function(fields) {
 module.exports = {
   getFormatedFields,
   parseOptions,
-  checkValidation
+  checkError
 };
