@@ -1,12 +1,12 @@
 const { parseOptions, getFormatedFields, checkError } = require('./cutLib');
 
-const performCut = function(display, data) {
+const performCut = function({ delimiter, fields }, display, data) {
   const chunk = data.toString();
   const lines = chunk.split('\n');
   const formatedFields = lines.map(line =>
-    getFormatedFields(line, this.delimiter, this.fields)
+    getFormatedFields(line, delimiter, fields)
   );
-  display({ message: formatedFields.join('\n') + '\n', err: '' });
+  display({ message: formatedFields.join('\n') + '\n', error: '' });
 };
 
 const sendError = function(path, display, error) {
@@ -21,21 +21,21 @@ const sendError = function(path, display, error) {
   const errorLine = errorList[error.code].message;
   const exitCode = errorList[error.code].code;
   process.exitCode = exitCode;
-  display({ message: '', err: errorLine + '\n' });
+  display({ message: '', error: errorLine + '\n' });
 };
 
 const performStream = function(chosenStream, options, display) {
   chosenStream.resume();
-  chosenStream.on('data', performCut.bind(options, display));
+  chosenStream.on('data', performCut.bind(null, options, display));
   chosenStream.on('error', sendError.bind(null, options.path, display));
 };
 
-const cut = function(args, display, createReadStream, rl) {
+const cut = function(args, display, { createReadStream, rl }) {
   const options = parseOptions(args);
   const validation = checkError(options);
   if (validation.isError) {
     process.exitCode = 1;
-    display({ message: '', err: validation.errorMsg + '\n' });
+    display({ message: '', error: validation.errorMsg + '\n' });
     return;
   }
   let chosenStream = rl;

@@ -14,53 +14,39 @@ describe('cut', function() {
 
     const display = function(output) {
       assert.oneOf(output.message, ['a\n', 'a-b\n', '\n']);
-      assert.isEmpty(output.err);
+      assert.isEmpty(output.error);
     };
 
-    cut(['-d', ' ', '-f', '1', 'anyPath'], display, createReadStream, {});
+    cut(['-d', ' ', '-f', '1', 'anyPath'], display, { createReadStream });
     mockedEmitter.emit('data', 'a b');
     mockedEmitter.emit('data', 'a-b');
     mockedEmitter.emit('data', '');
   });
 
   it('rl should be in chosenStream when file path is not given', function() {
-    const mockedEmitter = new Events();
-    mockedEmitter.resume = () => {};
+    const rl = new Events();
+    rl.resume = () => {};
 
     const display = function(output) {
       assert.oneOf(output.message, ['a\n', 'a-b\n', '\n']);
-      assert.isEmpty(output.err);
+      assert.isEmpty(output.error);
     };
 
-    cut(['-d', ' ', '-f', '1'], display, () => {}, mockedEmitter);
-    mockedEmitter.emit('data', 'a b');
-    mockedEmitter.emit('data', 'a-b');
-    mockedEmitter.emit('data', '');
-  });
-  it('rl should be in chosenStream when file path is not given', function() {
-    const mockedEmitter = new Events();
-    mockedEmitter.resume = () => {};
-
-    const display = function(output) {
-      assert.oneOf(output.message, ['a\n', 'a-b\n', '\n']);
-      assert.isEmpty(output.err);
-    };
-
-    cut(['-d', ' ', '-f', '1'], display, () => {}, mockedEmitter);
-    mockedEmitter.emit('data', 'a b');
-    mockedEmitter.emit('data', 'a-b');
-    mockedEmitter.emit('data', '');
+    cut(['-d', ' ', '-f', '1'], display, { rl });
+    rl.emit('data', 'a b');
+    rl.emit('data', 'a-b');
+    rl.emit('data', '');
   });
   it('display should get error message for given wrong argument', function() {
-    const mockedEmitter = new Events();
-    mockedEmitter.resume = () => {};
+    const rl = new Events();
+    rl.resume = () => {};
 
     const display = function(output) {
-      assert.strictEqual(output.err, 'cut: bad delimiter\n');
+      assert.strictEqual(output.error, 'cut: bad delimiter\n');
       assert.isEmpty(output.message);
     };
 
-    cut(['-d', '', '-f', '1'], display, () => {}, mockedEmitter);
+    cut(['-d', '', '-f', '1'], display, { rl });
   });
 
   it('incase of reading file error event should emit for error', function() {
@@ -74,17 +60,12 @@ describe('cut', function() {
 
     const display = function(output) {
       assert.strictEqual(
-        output.err,
+        output.error,
         'cut: wrongPath: No such file or directory\n'
       );
       assert.isEmpty(output.message);
     };
-    cut(
-      ['-d', ' ', '-f', '1', 'wrongPath'],
-      display,
-      createReadStream,
-      mockedEmitter
-    );
+    cut(['-d', ' ', '-f', '1', 'wrongPath'], display, { createReadStream });
     mockedEmitter.emit('error', { code: 'ENOENT' });
   });
 });

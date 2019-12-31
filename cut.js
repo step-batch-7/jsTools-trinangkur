@@ -12,10 +12,10 @@ rl.on('line', line => rl.emit('data', line));
 const main = function() {
   const display = function(outPut) {
     stdout.write(outPut.message);
-    stderr.write(outPut.err);
+    stderr.write(outPut.error);
   };
   const usrArgsStartIndex = 2;
-  cut(process.argv.slice(usrArgsStartIndex), display, createReadStream, rl);
+  cut(process.argv.slice(usrArgsStartIndex), display, { createReadStream, rl });
 };
 
 main();
