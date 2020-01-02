@@ -24,25 +24,24 @@ const sendError = function(path, display, error) {
   display({ message: '', error: errorLine + '\n' });
 };
 
-const performStream = function(chosenStream, options, display) {
-  chosenStream.resume();
-  chosenStream.on('data', performCut.bind(null, options, display));
-  chosenStream.on('error', sendError.bind(null, options.path, display));
-};
-
 const cut = function(args, display, { createReadStream, rl }) {
   const options = parseOptions(args);
-  const validation = checkError(options);
-  if (validation.isError) {
+  const error = checkError(options);
+  if (error.isError) {
     process.exitCode = 1;
-    display({ message: '', error: validation.errorMsg + '\n' });
+    display({ message: '', error: error.errorMsg + '\n' });
     return;
   }
-  let chosenStream = rl;
-  if (options.path) {
-    chosenStream = createReadStream(options.path);
-  }
-  performStream(chosenStream, options, display);
+
+  const chosenStream = options.path ? createReadStream(options.path) : rl;
+
+  const performStream = () => {
+    chosenStream.resume();
+    chosenStream.on('data', performCut.bind(null, options, display));
+    chosenStream.on('error', sendError.bind(null, options.path, display));
+  };
+
+  performStream();
 };
 
 module.exports = {
