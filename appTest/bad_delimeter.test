@@ -1,2 +1,2 @@
-node cut.js -d"" -f1 appTest/one.txt
+node cut.js -d"" -f1 appTest/state.txt
 cut: bad delimiter

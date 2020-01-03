@@ -1,0 +1,2 @@
+(chmod -r appTest/state.txt;node cut -f 2 appTest/state.txt;chmod +r appTest/state.txt)
+cut: appTest/state.txt: Permission denied

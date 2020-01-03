@@ -24,7 +24,7 @@ const sendError = function(path, display, error) {
   display({ message: '', error: errorLine + '\n' });
 };
 
-const cut = function(args, display, { createReadStream, rl }) {
+const cut = function(args, display, streamPicker) {
   const options = parseOptions(args);
   const error = checkError(options);
   if (error.isError) {
@@ -33,7 +33,7 @@ const cut = function(args, display, { createReadStream, rl }) {
     return;
   }
 
-  const chosenStream = options.path ? createReadStream(options.path) : rl;
+  const chosenStream = streamPicker.pick(options.path);
 
   const performStream = () => {
     chosenStream.resume();

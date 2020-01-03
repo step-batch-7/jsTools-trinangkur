@@ -1,4 +1,4 @@
-node cut.js -d " " -f 1 ./docs/state.txt 
+node cut.js -d " " -f 1 ./appTest/state.txt 
 Andhra
 West
 Bihar

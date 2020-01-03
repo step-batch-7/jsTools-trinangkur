@@ -2,6 +2,7 @@ const { createReadStream } = require('fs');
 const readLine = require('readline');
 const { stdout, stderr } = process;
 
+const StreamPicker = require('./src/streamPicker');
 const { cut } = require('./src/cutEstablisher');
 
 const rl = readLine.createInterface({ input: process.stdin });
@@ -14,8 +15,9 @@ const main = function() {
     stdout.write(outPut.message);
     stderr.write(outPut.error);
   };
+  const streamPicker = new StreamPicker(createReadStream, rl);
   const usrArgsStartIndex = 2;
-  cut(process.argv.slice(usrArgsStartIndex), display, { createReadStream, rl });
+  cut(process.argv.slice(usrArgsStartIndex), display, streamPicker);
 };
 
 main();
