@@ -1,4 +1,4 @@
-const { cut } = require('../src/cutEstablisher');
+const { cut } = require('../src/executeCut');
 const Events = require('events');
 const assert = require('chai').assert;
 

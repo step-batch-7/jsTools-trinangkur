@@ -64,7 +64,7 @@ describe('checkError', function() {
       assert.strictEqual(path, 'anyPath');
       return true;
     };
-    let actual = checkError(
+    const actual = checkError(
       {
         path: 'anyPath',
         delimiter: ',',
@@ -79,7 +79,7 @@ describe('checkError', function() {
       assert.strictEqual(path, 'anyPath');
       return true;
     };
-    let actual = checkError(
+    const actual = checkError(
       {
         path: 'anyPath',
         delimiter: '',
@@ -97,7 +97,7 @@ describe('checkError', function() {
       assert.strictEqual(path, 'anyPath');
       return true;
     };
-    let actual = checkError(
+    const actual = checkError(
       {
         path: 'anyPath',
         delimiter: ',',

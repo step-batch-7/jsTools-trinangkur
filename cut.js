@@ -4,7 +4,7 @@ const { stdout, stderr } = process;
 const { getFromTwo } = require('./src/arrayMethods');
 
 const StreamPicker = require('./src/streamPicker');
-const { cut } = require('./src/cutEstablisher');
+const { cut } = require('./src/executeCut');
 
 const rl = readLine.createInterface({ input: process.stdin });
 
