@@ -1,4 +1,5 @@
-const { parseOptions, getFormatedFields, checkError } = require('./cutLib');
+const { getFormatedFields, parseCutOptions } = require('./cutLib');
+const { Parser } = require('./parser');
 
 const performCut = function({ delimiter, fields }, display, data) {
   const chunk = data.toString();
@@ -25,11 +26,11 @@ const sendError = function(path, display, error) {
 };
 
 const cut = function(args, display, streamPicker) {
-  const options = parseOptions(args);
-  const error = checkError(options);
-  if (error.isError) {
+  const parser = new Parser({ '-f': 'fields', '-d': 'delimiter' });
+  const options = parseCutOptions(parser.parse(args));
+  if (options.isError) {
     process.exitCode = 1;
-    display({ message: '', error: error.errorMsg + '\n' });
+    display({ message: '', error: options.errorMsg + '\n' });
     return;
   }
 
