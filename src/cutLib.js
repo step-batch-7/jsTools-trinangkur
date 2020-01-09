@@ -31,6 +31,15 @@ const checkError = function(options) {
   return { isError: false, errorMsg: null };
 };
 
+const parseCutOptions = function(options) {
+  const validator = checkError(options);
+  if (validator.isError) {
+    return validator;
+  }
+  options.fields = parseRange(options.fields);
+  return options;
+};
+
 const parseOptions = function(args) {
   const next = 1;
   const options = {};
@@ -63,5 +72,6 @@ const parseRange = function(fields) {
 module.exports = {
   getFormatedFields,
   parseOptions,
-  checkError
+  checkError,
+  parseCutOptions
 };

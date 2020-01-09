@@ -1,7 +1,8 @@
 const {
   getFormatedFields,
   parseOptions,
-  checkError
+  checkError,
+  parseCutOptions
 } = require('../src/cutLib');
 const assert = require('chai').assert;
 
@@ -45,70 +46,72 @@ describe('parseOptions', function() {
 
 describe('checkError', function() {
   it('should return an object having isError as false and errorMsg as null when no error is there', function() {
-    const doesFileExists = function(path) {
-      assert.strictEqual(path, 'anyPath');
-      return true;
-    };
-    const actual = checkError(
-      {
-        path: undefined,
-        delimiter: ',',
-        fields: '1'
-      },
-      doesFileExists
-    );
+    const actual = checkError({
+      path: undefined,
+      delimiter: ',',
+      fields: '1'
+    });
     assert.deepStrictEqual(actual, { isError: false, errorMsg: null });
   });
   it('should return isError as false when right file name is given ', function() {
-    const doesFileExists = function(path) {
-      assert.strictEqual(path, 'anyPath');
-      return true;
-    };
-    const actual = checkError(
-      {
-        path: 'anyPath',
-        delimiter: ',',
-        fields: '1'
-      },
-      doesFileExists
-    );
+    const actual = checkError({
+      path: 'anyPath',
+      delimiter: ',',
+      fields: '1'
+    });
     assert.deepStrictEqual(actual, { isError: false, errorMsg: null });
   });
   it('should return isError as true when delimiter is invalid', function() {
-    const doesFileExists = function(path) {
-      assert.strictEqual(path, 'anyPath');
-      return true;
-    };
-    const actual = checkError(
-      {
-        path: 'anyPath',
-        delimiter: '',
-        fields: '1'
-      },
-      doesFileExists
-    );
+    const actual = checkError({
+      path: 'anyPath',
+      delimiter: '',
+      fields: '1'
+    });
     assert.deepStrictEqual(actual, {
       isError: true,
       errorMsg: 'cut: bad delimiter'
     });
   });
   it('should return isError as true when field is not given', function() {
-    const doesFileExists = function(path) {
-      assert.strictEqual(path, 'anyPath');
-      return true;
-    };
-    const actual = checkError(
-      {
-        path: 'anyPath',
-        delimiter: ',',
-        fields: undefined
-      },
-      doesFileExists
-    );
+    const actual = checkError({
+      path: 'anyPath',
+      delimiter: ',',
+      fields: undefined
+    });
     assert.deepStrictEqual(actual, {
       isError: true,
       errorMsg:
         'usage: cut -b list [-n] [file ...]\ncut -c list [file ...]\ncut -f list [-s] [-d delim] [file ...]'
+    });
+  });
+});
+
+describe('parseCutOptions', function() {
+  it('should get all options if right options are given', function() {
+    const actual = parseCutOptions({ delimiter: ',', fields: '1' });
+    assert.deepStrictEqual(actual, { delimiter: ',', fields: [1] });
+  });
+  it('for a given file path it should have path as an property', function() {
+    const actual = parseCutOptions({
+      delimiter: ',',
+      fields: '1',
+      path: 'anyPath'
+    });
+    assert.deepStrictEqual(actual, {
+      delimiter: ',',
+      fields: [1],
+      path: 'anyPath'
+    });
+  });
+  it('should give error object if any error appear', function() {
+    const actual = parseCutOptions({
+      delimiter: '',
+      fields: '1',
+      path: 'anyPath'
+    });
+    assert.deepStrictEqual(actual, {
+      isError: true,
+      errorMsg: 'cut: bad delimiter'
     });
   });
 });
